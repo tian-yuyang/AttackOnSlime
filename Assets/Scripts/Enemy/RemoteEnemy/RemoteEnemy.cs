@@ -6,6 +6,7 @@ public class RemoteEnemy : Enemy
 {
 	private float escapeDistance = 5f;
 	private bool isElite = false;
+	private CoolDownBar coolDown = new CoolDownBar();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -19,7 +20,7 @@ public class RemoteEnemy : Enemy
     {
 		base.Update();
         // alert mode
-		if (GetTargetDistance() < alertDistance)// && coolDown.ReadyForNext())
+		if (GetTargetDistance() < alertDistance && coolDown.ReadyForNext())
 		{
 			Attack();
 		}
@@ -57,7 +58,7 @@ public class RemoteEnemy : Enemy
 		
 		newBullet.transform.localPosition = transform.localPosition;
 		newBullet.transform.rotation = transform.rotation;
-		// coolDown.TriggerCoolDown();
+		coolDown.TriggerCoolDown();
 	}
 
 	void Escape()
