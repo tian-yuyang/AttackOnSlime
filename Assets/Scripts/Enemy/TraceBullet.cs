@@ -6,7 +6,7 @@ public class TraceBullet : MonoBehaviour
 {
     private float bulletSpeed = 40f;
     private int life = 400;
-    static private Hero targetHero;
+    static private Lily targetHero;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +43,7 @@ public class TraceBullet : MonoBehaviour
         return (targetHero.transform.position - transform.position).normalized;
     }
 
-    static public void SetTargetHero(Hero newTargetHero)
+    static public void SetTargetHero(Lily newTargetHero)
     {
         targetHero = newTargetHero;
     }
