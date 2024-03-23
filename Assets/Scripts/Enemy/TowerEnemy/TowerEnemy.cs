@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TowerEnemy : Enemy
 {
+	public CoolDownBar coolDown = null;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -16,7 +17,7 @@ public class TowerEnemy : Enemy
     {
 		base.Update();
         // alert mode
-		if (GetTargetDistance() < alertDistance)// && coolDown.ReadyForNext())
+		if (GetTargetDistance() < alertDistance && coolDown.ReadyForNext())
 		{
 			Attack();
 		}
@@ -26,14 +27,15 @@ public class TowerEnemy : Enemy
 	{
 		SetSpeed(0f);
 		SetLife(10);
+		Bullet.SetTargetHero(targetHero);
+		TraceBullet.SetTargetHero(targetHero);
 	}
 
 	void Attack()
 	{
 		GameObject newBullet = Instantiate(Resources.Load("Prefabs/Bullet") as GameObject);
 		newBullet.transform.localPosition = transform.localPosition;
-		newBullet.transform.rotation = transform.rotation;
-		// coolDown.TriggerCoolDown();
+		coolDown.TriggerCoolDown();
 	}
 
 	protected override void OnTriggerEnter2D(Collider2D objectName)

@@ -5,16 +5,18 @@ using UnityEngine;
 // ABC
 public class Enemy : MonoBehaviour
 {
-    private int life;
+    private int life = 10;
     public float speed;
-    public float alertDistance = 10f;
+    public float alertDistance = 70f;
+	public Vector3 originPosition;
 
     // not implemented about hero
-    public int targetHero;
+    public Hero targetHero;
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+        // transform.position = originPosition;
+		originPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -24,6 +26,10 @@ public class Enemy : MonoBehaviour
         {
             Kill();
         }
+		if (GetTargetDistance() > alertDistance && !IsReturned())
+		{
+			ReturnToOrigin();
+		}
     }
 
     public void Damage(int damage)
@@ -46,7 +52,7 @@ public class Enemy : MonoBehaviour
         speed = newSpeed;
     }
 
-    public void SetTargetHero(int newTargetHero)
+    public void SetTargetHero(Hero newTargetHero)
     {
         targetHero = newTargetHero;
     }
@@ -56,17 +62,49 @@ public class Enemy : MonoBehaviour
         transform.position = newPosition;
     }
 
+	public float GetOriginDistance()
+	{
+		Vector3 v = transform.position - originPosition;
+		v.z = 0;
+		return v.magnitude;
+	}
+
+	public Vector3 GetOriginDirection()
+    {
+        Vector3 v = originPosition - transform.position;
+		v.z = 0;
+		return v.normalized;
+    }
+
     public float GetTargetDistance()
     {
-        return 0f;
-        // return (transform.position - targetHero.transform.position).magnitude;
+        Vector3 v = transform.position - targetHero.transform.position;
+		v.z = 0;
+		return v.magnitude;
     }
 
     public Vector3 GetTargetDirection()
     {
-        return new Vector3(1,1,1);
-        // return (targetHero.transform.position - transform.position).Normalize();
+        Vector3 v = targetHero.transform.position - transform.position;
+		v.z = 0;
+		return v.normalized;
     }
+
+	bool IsReturned()
+	{
+		if (GetOriginDistance() < 1f)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	void ReturnToOrigin()
+	{
+		Vector3 p = transform.position;
+		p += speed * Time.smoothDeltaTime * GetOriginDirection();
+		transform.position = p;
+	}
     
     protected virtual void OnTriggerEnter2D(Collider2D objectName)
     {

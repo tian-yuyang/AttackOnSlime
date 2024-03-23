@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RemoteEnemy : Enemy
 {
-	private float escapeDistance = 5f;
-	private bool isElite = false;
-	private CoolDownBar coolDown = new CoolDownBar();
+	private float escapeDistance = 35f;
+	public bool isElite = false;
+	public CoolDownBar coolDown = null;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -42,6 +42,8 @@ public class RemoteEnemy : Enemy
 	{
 		SetSpeed(10f);
 		SetLife(10);
+		Bullet.SetTargetHero(targetHero);
+		TraceBullet.SetTargetHero(targetHero);
 	}
 
 	void Attack()
@@ -57,7 +59,6 @@ public class RemoteEnemy : Enemy
 		}
 		
 		newBullet.transform.localPosition = transform.localPosition;
-		newBullet.transform.rotation = transform.rotation;
 		coolDown.TriggerCoolDown();
 	}
 

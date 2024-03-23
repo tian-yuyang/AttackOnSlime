@@ -5,11 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	private float bulletSpeed = 40f;
-	private int targetHero;
+	static public Hero targetHero;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Vector3 v = GetTargetDirection();
+        v.z = 0;
+        transform.rotation = Quaternion.FromToRotation(Vector3.up, v);
     }
 
     // Update is called once per frame
@@ -28,10 +30,15 @@ public class Bullet : MonoBehaviour
         Destroy(transform.gameObject);
     }
 
-	public void SetTargetHero(int newTargetHero)
+	static public void SetTargetHero(Hero newTargetHero)
 	{
 		targetHero = newTargetHero;
 	}
+
+	public Vector3 GetTargetDirection()
+    {
+        return (targetHero.transform.position - transform.position).normalized;
+    }
 
 	void OnTriggerEnter2D(Collider2D objectName)
     {
