@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class TailController : MonoBehaviour
 {
@@ -17,8 +18,11 @@ public class TailController : MonoBehaviour
     private List<GameObject> mFollowedList = null; //记录跟随主角的尾巴
     private List<int> mTriggerFlags = null; //记录每个TailNode的触发状态
     private float mFollowedGenerateTimer = 0.0f; //TailNode生成计时器
+    private float mAttackTimer = 0.0f; //攻击计时器
 
-    public float mFollowedGeneratenterval = 3.0f; //TailNode生成间隔
+    public float mFollowedGenerateInterval = 3.0f; //TailNode生成间隔
+    public float mAttackInterval = 1.0f; //攻击间隔
+    public float mAttackPenetyRatio = 2.0f; //攻击惩罚
 
     // Start is called before the first frame update
     void Start()
@@ -40,14 +44,14 @@ public class TailController : MonoBehaviour
         GenerateNewTailNode();
 
         List<TriggerCircle> list = ExtractCircleOnTrack();
-        TestColor(list);
 
-        for (int i = 0; i < list.Count; i++)
         {
-            Debug.Log("MinPos: " + list[i].mMinPos + " MaxPos: " + list[i].mMaxPos);
+            Attack(); //普攻
+            DeleteNodeAndReshapeTrack(list); //技能1
+            ReTrace(); //终结技
         }
 
-        DeleteNodeAndReshapeTrack(list);
+        TestColor(list);
     }
 
     private void GenerateNewTailNode()
@@ -74,7 +78,7 @@ public class TailController : MonoBehaviour
 
         mFollowedList.Add(tailElement);
 
-        mFollowedGenerateTimer = mFollowedGeneratenterval;
+        mFollowedGenerateTimer = mFollowedGenerateInterval;
     }
 
     private List<TriggerCircle> ExtractCircleOnTrack()
@@ -108,9 +112,16 @@ public class TailController : MonoBehaviour
             bool isCircle = true;
             TriggerCircle currentCircle = new TriggerCircle() { mMinPos = flagMinPosList[i], mMaxPos = flagMaxPosList[i] };
             {
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j < list.Count; j++)
                 {
-                    if (currentCircle.mMaxPos < flagMaxPosList[j])
+                    if (currentCircle.mMinPos < list[j].mMaxPos && currentCircle.mMaxPos > list[j].mMaxPos) //交叉情况
+                    {
+                        list[j].mMaxPos = currentCircle.mMaxPos;
+                        isCircle = false;
+                        break;
+                    }
+
+                    if (currentCircle.mMaxPos < list[j].mMaxPos)
                     {
                         isCircle = false;
                         break;
@@ -138,9 +149,33 @@ public class TailController : MonoBehaviour
         }
     }
 
+    private void Attack()
+    {
+        if (!Input.GetKey(KeyCode.J))
+            return;
+
+        if (mAttackTimer > 0.0f) //生成TailNode的间隔
+        {
+            mAttackTimer -= Time.deltaTime;
+            return;
+        }
+
+        bool isAttackSuccess = false;
+        for (int i = 0; i < mFollowedList.Count; i++)
+        {
+            isAttackSuccess |= mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+        }
+
+        if (isAttackSuccess)
+        {
+            mAttackTimer = mAttackInterval;
+            mFollowedGenerateTimer = Math.Min(mFollowedGenerateInterval * mAttackPenetyRatio,4.8f);
+        }
+    }   
+
     private void DeleteNodeAndReshapeTrack(List<TriggerCircle> list)
     {
-        if (!Input.GetKeyDown(KeyCode.Space))
+        if (!Input.GetKeyDown(KeyCode.K))
             return;
 
         for (int i = 0; i < list.Count; i++)
@@ -158,10 +193,17 @@ public class TailController : MonoBehaviour
             mTrack.RemoveRange(prevSearchPos + 1, postSearchPos - prevSearchPos - 1);
             mTrack.InsertRange(prevSearchPos + 1, insertPos);
 
-            for (int j = list[i].mMinPos; j <= list[i].mMaxPos; j++)
+            List<Vector2> ringNodePos = new List<Vector2>();
+            Vector3 averagePos = new Vector3(0.0f, 0.0f,0.0f);
+            for (int j = list[i].mMinPos; j <= Math.Min(list[i].mMaxPos, mFollowedList.Count - 1); j++)
             {
+                ringNodePos.Add(new Vector2(mFollowedList[j].transform.position.x, mFollowedList[j].transform.position.y));
+                averagePos += mFollowedList[j].transform.position;
                 Destroy(mFollowedList[j]);
             }
+            GameObject ring = Instantiate(Resources.Load("Prefabs/Ring"), Vector3.zero , Quaternion.identity) as GameObject;
+            ring.GetComponent<RingBehavior>().SetColliderPoints(ringNodePos);
+
             mFollowedList.RemoveRange(list[i].mMinPos, list[i].mMaxPos - list[i].mMinPos + 1);
 
             for (int j = i + 1; j < list.Count; j++)
@@ -183,6 +225,33 @@ public class TailController : MonoBehaviour
         }
     }
 
+    //结合两个特殊技能的描述：1. 回溯轨迹 2. 大范围引爆
+    private void ReTrace()
+    {
+        if (!Input.GetKeyDown(KeyCode.Space))
+            return;
+
+        if (mFollowedList.Count < 15)
+            return;
+
+        for (int i = 0; i < mTriggerFlags.Count; i++)
+        {
+            mTriggerFlags[i] = 0;
+        }
+
+        transform.position = mTrack[(mFollowedList[mFollowedList.Count - 1].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx() + 1) * TailNodeBehavior.SearchInterval];
+        Instantiate(Resources.Load("Prefabs/Explosion"), transform.position, Quaternion.identity);
+        
+        mTrack.Clear();
+        for (int i = 0; i < mFollowedList.Count; i++)
+        {
+            Destroy(mFollowedList[i]);
+        }
+
+        mFollowedList.Clear();
+
+    }
+
     public List<Vector3> GetTrack()
     {
         return mTrack;
@@ -198,4 +267,8 @@ public class TailController : MonoBehaviour
         return mTriggerFlags;
     }
 
+    public float GetAttackTimer()
+    {
+        return mAttackTimer;
+    }
 }

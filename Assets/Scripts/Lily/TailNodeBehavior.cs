@@ -17,6 +17,8 @@ public class TailNodeBehavior : MonoBehaviour
     private GameObject mLeader;
     private int mCurrentNodeIdx;
 
+    private GameObject mCollidedObject = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,6 @@ public class TailNodeBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //TODO(Hangyu) : 目前只考虑了TailNode之间的碰撞，后续需要考虑其他物体的碰撞
-
         if (collision.gameObject.tag == "Tail")
         {
             if (!mLeader) return;
@@ -57,6 +58,25 @@ public class TailNodeBehavior : MonoBehaviour
             List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             triggerFlags[mCurrentNodeIdx] = 0;
         }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            mCollidedObject = null;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            mCollidedObject = collision.gameObject;
+        }
+    }
+
+    public bool Attack()
+    {
+        if(!mCollidedObject) return false;
+        Destroy(mCollidedObject);
+        return true;
     }
 
 
