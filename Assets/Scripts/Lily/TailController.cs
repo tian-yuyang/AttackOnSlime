@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +41,13 @@ public class TailController : MonoBehaviour
 
         List<TriggerCircle> list = ExtractCircleOnTrack();
         TestColor(list);
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log("MinPos: " + list[i].mMinPos + " MaxPos: " + list[i].mMaxPos);
+        }
+
+        DeleteNodeAndReshapeTrack(list);
     }
 
     private void GenerateNewTailNode()
@@ -98,14 +107,17 @@ public class TailController : MonoBehaviour
         {
             bool isCircle = true;
             TriggerCircle currentCircle = new TriggerCircle() { mMinPos = flagMinPosList[i], mMaxPos = flagMaxPosList[i] };
-            for (int j = 0; j < i; j++)
             {
-                if (currentCircle.mMaxPos < flagMaxPosList[j]) //Min¶Î²»ÓÃ¼ì²â
+                for (int j = 0; j < i; j++)
                 {
-                    isCircle = false;
-                    break;
+                    if (currentCircle.mMaxPos < flagMaxPosList[j])
+                    {
+                        isCircle = false;
+                        break;
+                    }
                 }
             }
+            isCircle &= (currentCircle.mMinPos != currentCircle.mMaxPos);
             if (isCircle) list.Add(currentCircle);
         }
 
@@ -123,6 +135,51 @@ public class TailController : MonoBehaviour
                     mFollowedList[i].GetComponent<SpriteRenderer>().color = Color.green;
             }
 
+        }
+    }
+
+    private void DeleteNodeAndReshapeTrack(List<TriggerCircle> list)
+    {
+        if (!Input.GetKeyDown(KeyCode.Space))
+            return;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            int prevSearchPos = Math.Max((list[i].mMinPos - 1) * TailNodeBehavior.SearchInterval, 0);
+            int postSearchPos = Math.Min((list[i].mMaxPos + 1) * TailNodeBehavior.SearchInterval, mTrack.Count - 1);
+            Vector3 prevPos = mTrack[prevSearchPos];
+            Vector3 postPos = mTrack[postSearchPos];
+            List<Vector3> insertPos = new List<Vector3>();
+            for (int j = 1; j < TailNodeBehavior.SearchInterval; j++)
+            {
+                insertPos.Add(Vector3.Lerp(prevPos, postPos, (float)j / TailNodeBehavior.SearchInterval));
+            }
+
+            mTrack.RemoveRange(prevSearchPos + 1, postSearchPos - prevSearchPos - 1);
+            mTrack.InsertRange(prevSearchPos + 1, insertPos);
+
+            for (int j = list[i].mMinPos; j <= list[i].mMaxPos; j++)
+            {
+                Destroy(mFollowedList[j]);
+            }
+            mFollowedList.RemoveRange(list[i].mMinPos, list[i].mMaxPos - list[i].mMinPos + 1);
+
+            for (int j = i + 1; j < list.Count; j++)
+            {
+                list[j].mMinPos -= (list[i].mMaxPos - list[i].mMinPos + 1);
+                list[j].mMaxPos -= (list[i].mMaxPos - list[i].mMinPos + 1);
+            }
+
+            for (int j = list[i].mMinPos; j < mFollowedList.Count; j++)
+            {
+                int pos = mFollowedList[j].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx();
+                mFollowedList[j].GetComponent<TailNodeBehavior>().SetCurrentNodeIdx(pos - (list[i].mMaxPos - list[i].mMinPos + 1));
+            }
+        }
+
+        for (int i = 0; i < mTriggerFlags.Count; i++)
+        {
+            mTriggerFlags[i] = 0;
         }
     }
 

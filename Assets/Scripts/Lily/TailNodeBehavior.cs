@@ -41,9 +41,10 @@ public class TailNodeBehavior : MonoBehaviour
         {
             if (!mLeader) return;
 
-            List<int> triggerIndices = mLeader.GetComponent<TailController>().GetTriggerFlags();
+            List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             int collidedNodeIdx = collision.gameObject.GetComponent<TailNodeBehavior>().mCurrentNodeIdx;
-            triggerIndices[mCurrentNodeIdx] = Math.Min(collidedNodeIdx, mCurrentNodeIdx);
+            if(Math.Abs(collidedNodeIdx - mCurrentNodeIdx) > 1)
+                triggerFlags[mCurrentNodeIdx] = Math.Min(collidedNodeIdx, mCurrentNodeIdx);
         }
     }
 
@@ -53,8 +54,8 @@ public class TailNodeBehavior : MonoBehaviour
         {
             if (!mLeader) return;
 
-            List<int> triggerIndices = mLeader.GetComponent<TailController>().GetTriggerFlags();
-            triggerIndices[mCurrentNodeIdx] = 0;
+            List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
+            triggerFlags[mCurrentNodeIdx] = 0;
         }
     }
 
