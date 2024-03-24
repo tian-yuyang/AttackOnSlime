@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
 	public Vector3 originPosition;
 
     // not implemented about hero
-    public Hero targetHero;
+    public Lily targetHero;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
         speed = newSpeed;
     }
 
-    public void SetTargetHero(Hero newTargetHero)
+    public void SetTargetHero(Lily newTargetHero)
     {
         targetHero = newTargetHero;
     }
