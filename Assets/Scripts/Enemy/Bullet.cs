@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	private float bulletSpeed = 40f;
-	static public Hero targetHero;
+	static public Lily targetHero;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
         Destroy(transform.gameObject);
     }
 
-	static public void SetTargetHero(Hero newTargetHero)
+	static public void SetTargetHero(Lily newTargetHero)
 	{
 		targetHero = newTargetHero;
 	}
