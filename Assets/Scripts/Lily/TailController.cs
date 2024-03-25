@@ -184,14 +184,14 @@ public class TailController : MonoBehaviour
 
     private void Attack()
     {
-        if (!Input.GetKey(KeyCode.J))
-            return;
-
         if (mAttackTimer > 0.0f) //生成TailNode的间隔
         {
             mAttackTimer -= Time.deltaTime;
             return;
         }
+
+        if (!Input.GetKey(KeyCode.J))
+            return;
 
         bool isAttackSuccess = false;
         for (int i = 0; i < mFollowedList.Count; i++)
