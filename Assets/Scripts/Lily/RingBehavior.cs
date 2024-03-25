@@ -13,7 +13,7 @@ public class RingBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mLifeTime = 1.0f;
+        mLifeTime = 6.0f;
 
         PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
         polygonCollider.SetPath(0, mPoints);

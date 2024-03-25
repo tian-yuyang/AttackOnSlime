@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fb4352337575094386aad202cc24b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mRingRemainInterval: 0.03
+  mRingRemainInterval: 0.07
   mFollowedGenerateInterval: 3
   mAttackInterval: 2
   mAttackPenetyRatio: 1.5
