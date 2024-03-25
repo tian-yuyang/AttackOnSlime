@@ -96,19 +96,13 @@
     },
     "com.unity.burst": {
       "version": "1.8.11",
-<<<<<<< HEAD
-      "depth": 3,
-=======
       "depth": 1,
->>>>>>> origin/main
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
       },
       "url": "https://packages.unity.cn"
     },
-<<<<<<< HEAD
-=======
     "com.unity.cinemachine": {
       "version": "2.9.7",
       "depth": 0,
@@ -125,7 +119,6 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
->>>>>>> origin/main
     "com.unity.collections": {
       "version": "1.2.4",
       "depth": 2,
@@ -138,11 +131,7 @@
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
-<<<<<<< HEAD
-      "depth": 2,
-=======
       "depth": 1,
->>>>>>> origin/main
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
@@ -162,8 +151,6 @@
         "com.unity.2d.aseprite": "1.1.0"
       }
     },
-<<<<<<< HEAD
-=======
     "com.unity.ide.rider": {
       "version": "3.0.27",
       "depth": 0,
@@ -173,7 +160,6 @@
       },
       "url": "https://packages.unity.cn"
     },
->>>>>>> origin/main
     "com.unity.ide.visualstudio": {
       "version": "2.0.22",
       "depth": 0,
@@ -185,8 +171,6 @@
     },
     "com.unity.mathematics": {
       "version": "1.2.6",
-<<<<<<< HEAD
-=======
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -234,17 +218,11 @@
     },
     "com.unity.searcher": {
       "version": "4.9.2",
->>>>>>> origin/main
       "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
-<<<<<<< HEAD
-    "com.unity.test-framework": {
-      "version": "1.1.33",
-      "depth": 1,
-=======
     "com.unity.shadergraph": {
       "version": "14.0.9",
       "depth": 1,
@@ -257,7 +235,6 @@
     "com.unity.test-framework": {
       "version": "1.1.33",
       "depth": 0,
->>>>>>> origin/main
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6",
@@ -266,11 +243,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-<<<<<<< HEAD
-    "com.unity.ugui": {
-      "version": "1.0.0",
-      "depth": 2,
-=======
     "com.unity.textmeshpro": {
       "version": "3.0.6",
       "depth": 0,
@@ -295,15 +267,12 @@
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
->>>>>>> origin/main
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-<<<<<<< HEAD
-=======
     "com.unity.visualscripting": {
       "version": "1.9.1",
       "depth": 0,
@@ -314,7 +283,6 @@
       },
       "url": "https://packages.unity.cn"
     },
->>>>>>> origin/main
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
