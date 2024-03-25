@@ -32,7 +32,7 @@ public class MeleeEnemy : Enemy
     
     void Init()
 	{
-		SetSpeed(10f);
+		SetSpeed(3f);
 		SetLife(10);
 	}
 
