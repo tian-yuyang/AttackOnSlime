@@ -12,7 +12,7 @@ public class TailNodeBehavior : MonoBehaviour
 {
     //TODO(Hangyu) : 是否需要Editor映射？
     public static int SearchInterval = 3;
-
+    public static int FirstSearchPosOffset = 2;
 
     private GameObject mLeader;
     private int mCurrentNodeIdx;
@@ -29,7 +29,7 @@ public class TailNodeBehavior : MonoBehaviour
     void Update()
     {
         //更新tail node位置
-        int searchPosOnTrack = (mCurrentNodeIdx + 1) * SearchInterval;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
+        int searchPosOnTrack = (mCurrentNodeIdx + 1) * SearchInterval + FirstSearchPosOffset;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
 
         List<Vector3> track = mLeader.GetComponent<TailController>().GetTrack();
         transform.position = track[searchPosOnTrack];
@@ -80,9 +80,9 @@ public class TailNodeBehavior : MonoBehaviour
     }
 
 
-    public void SetCurrentNodeIdx(int InSearchPos)
+    public void SetCurrentNodeIdx(int InNodeIdx)
     {
-        mCurrentNodeIdx = InSearchPos;
+        mCurrentNodeIdx = InNodeIdx;
     }
 
     public int GetCurrentNodeIdx()
