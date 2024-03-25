@@ -8,9 +8,6 @@ public class Bullet : MonoBehaviour
 
 	static public Lily targetHero;
 
-	// anitmation field
-	public Animator anim; 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +29,6 @@ public class Bullet : MonoBehaviour
 
 	void Kill()
     {
-		anim .SetBool("dead", true);
         Destroy(transform.gameObject);
     }
 
