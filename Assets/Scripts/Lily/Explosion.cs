@@ -8,7 +8,7 @@ public class Explosion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mLifeTime = 1.0f;
+        mLifeTime = 0.25f;
     }
 
     // Update is called once per frame
@@ -16,6 +16,7 @@ public class Explosion : MonoBehaviour
     {
         mLifeTime -= Time.deltaTime;
         if (mLifeTime <= 0.0f) Destroy(gameObject);
+        GetComponent<SpriteRenderer>().material.SetFloat("_FadeAmount", 1 - mLifeTime * 4.0f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
