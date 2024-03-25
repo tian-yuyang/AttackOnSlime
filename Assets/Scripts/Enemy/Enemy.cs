@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public Lily targetHero;
 
 	// anitmation field
-	public Animator anim; 
+	public Animator anim;
 	public HPcontrol hpcontrol;
 
     // Start is called before the first frame update
@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     {
 		// life control and HP display
 		hpcontrol.HP = (float)damage / (float)life;
+		Debug.Log(hpcontrol.HP);
         if (life <= damage)
         {
             Kill();
@@ -59,7 +60,12 @@ public class Enemy : MonoBehaviour
     public void Kill()
     {
 		anim .SetBool("dead", true);
-        Destroy(transform.gameObject);
+		Invoke("Destroy", 1.0f);
+    }
+
+    public void Destroy()
+    {
+	    Destroy(transform.gameObject);
     }
 
     public void SetLife(int newLife)
@@ -128,9 +134,13 @@ public class Enemy : MonoBehaviour
     
     protected virtual void OnTriggerEnter2D(Collider2D objectName)
     {
-        if (objectName.gameObject.name == "Map")
+        if (objectName.gameObject.tag == "Map")
         {
             ;
+        }
+        if (objectName.gameObject.tag == "Player")
+        {
+	        ;
         }
     }
 }

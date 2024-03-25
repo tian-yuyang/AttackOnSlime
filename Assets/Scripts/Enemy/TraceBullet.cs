@@ -8,9 +8,6 @@ public class TraceBullet : MonoBehaviour
     private int life = 400;
     static private Lily targetHero;
     
-    // anitmation field
-    public Animator anim; 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +36,6 @@ public class TraceBullet : MonoBehaviour
 
     void Kill()
     {
-        anim .SetBool("dead", true);
         Destroy(transform.gameObject);
     }
     
