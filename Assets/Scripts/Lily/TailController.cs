@@ -1,3 +1,4 @@
+using AllIn1SpriteShader;
 using JetBrains.Annotations;
 using System;
 using System.Collections;
@@ -20,6 +21,12 @@ public class TailController : MonoBehaviour
     private float mFollowedGenerateTimer = 0.0f; //TailNode生成计时器
     private float mAttackTimer = 0.0f; //攻击计时器
 
+    //Fix bug: 用于松弛的环判定
+    private List<TriggerCircle> mCircleList = null;
+    private float mRingRemainTimer = 0.0f;
+    public float mRingRemainInterval = 0.03f;
+    //
+
     public float mFollowedGenerateInterval = 3.0f; //TailNode生成间隔
     public float mAttackInterval = 1.0f; //攻击间隔
     public float mAttackPenetyRatio = 2.0f; //攻击惩罚
@@ -29,6 +36,7 @@ public class TailController : MonoBehaviour
     {
         mTrack = new List<Vector3>();
         mFollowedList = new List<GameObject>();
+        mCircleList = new List<TriggerCircle>();
         mTriggerFlags = Enumerable.Repeat(0, Application.targetFrameRate * 4 / TailNodeBehavior.SearchInterval).ToList();
     }
 
@@ -44,14 +52,36 @@ public class TailController : MonoBehaviour
         GenerateNewTailNode();
 
         List<TriggerCircle> list = ExtractCircleOnTrack();
+        LooseRingRemainJudge(list);
+
 
         {
             Attack(); //普攻
-            DeleteNodeAndReshapeTrack(list); //技能1
+            DeleteNodeAndReshapeTrack(mCircleList); //技能1
             ReTrace(); //终结技
         }
 
-        TestColor(list);
+        TestColor(mCircleList);
+    }
+
+    private void LooseRingRemainJudge(List<TriggerCircle> list)
+    {
+        if (mCircleList.Count == 0 || mCircleList.Count < list.Count)
+        {
+            mCircleList = list;
+            mRingRemainTimer = mRingRemainInterval;
+        }
+        else if (mCircleList.Count >= list.Count)
+        {
+            if(mRingRemainTimer > 0.0f)
+            {
+                mRingRemainTimer -= Time.deltaTime;
+                return;
+            }
+            mCircleList = list;
+            mRingRemainTimer = mRingRemainInterval;
+        }
+
     }
 
     private void GenerateNewTailNode()
@@ -139,11 +169,11 @@ public class TailController : MonoBehaviour
     {
         for (int i = 0; i < mFollowedList.Count; i++)
         {
-            mFollowedList[i].GetComponent<SpriteRenderer>().color = Color.white;
+            mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 0.0f);
             for (int j = 0; j < list.Count; j++)
             {
                 if (i >= list[j].mMinPos && i <= list[j].mMaxPos)
-                    mFollowedList[i].GetComponent<SpriteRenderer>().color = Color.green;
+                    mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 1.0f);
             }
 
         }
