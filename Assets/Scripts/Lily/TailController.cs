@@ -54,14 +54,13 @@ public class TailController : MonoBehaviour
         List<TriggerCircle> list = ExtractCircleOnTrack();
         LooseRingRemainJudge(list);
 
+        TestColor(mCircleList);
 
         {
             Attack(); //普攻
             DeleteNodeAndReshapeTrack(mCircleList); //技能1
             ReTrace(); //终结技
         }
-
-        TestColor(mCircleList);
     }
 
     private void LooseRingRemainJudge(List<TriggerCircle> list)
@@ -262,10 +261,17 @@ public class TailController : MonoBehaviour
     //结合两个特殊技能的描述：1. 回溯轨迹 2. 大范围引爆
     private void ReTrace()
     {
-        if (!Input.GetKeyDown(KeyCode.Space))
-            return;
-
         if (mFollowedList.Count < 15)
+            return;
+        else
+        {
+            for (int i = 0; i < mFollowedList.Count; i++)
+            {
+                mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.blue;
+            }
+        }
+
+        if (!Input.GetKeyDown(KeyCode.Space))
             return;
 
         for (int i = 0; i < mTriggerFlags.Count; i++)
