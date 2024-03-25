@@ -24,7 +24,7 @@ public class TailController : MonoBehaviour
     //Fix bug: 用于松弛的环判定
     private List<TriggerCircle> mCircleList = null;
     private float mRingRemainTimer = 0.0f;
-    public float mRingRemainInterval = 0.03f;
+    public float mRingRemainInterval = 0.08f;
     //
 
     public float mFollowedGenerateInterval = 3.0f; //TailNode生成间隔
@@ -54,14 +54,13 @@ public class TailController : MonoBehaviour
         List<TriggerCircle> list = ExtractCircleOnTrack();
         LooseRingRemainJudge(list);
 
+        TestColor(mCircleList);
 
         {
             Attack(); //普攻
             DeleteNodeAndReshapeTrack(mCircleList); //技能1
             ReTrace(); //终结技
         }
-
-        TestColor(mCircleList);
     }
 
     private void LooseRingRemainJudge(List<TriggerCircle> list)
@@ -73,7 +72,7 @@ public class TailController : MonoBehaviour
         }
         else if (mCircleList.Count >= list.Count)
         {
-            if(mRingRemainTimer > 0.0f)
+            if (mRingRemainTimer > 0.0f)
             {
                 mRingRemainTimer -= Time.deltaTime;
                 return;
@@ -170,10 +169,14 @@ public class TailController : MonoBehaviour
         for (int i = 0; i < mFollowedList.Count; i++)
         {
             mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 0.0f);
+            mFollowedList[i].GetComponent<SpriteRenderer>().color = Color.white;
             for (int j = 0; j < list.Count; j++)
             {
                 if (i >= list[j].mMinPos && i <= list[j].mMaxPos)
+                {
                     mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 1.0f);
+                    mFollowedList[i].GetComponent<SpriteRenderer>().color = Color.red;
+                }
             }
 
         }
@@ -181,14 +184,14 @@ public class TailController : MonoBehaviour
 
     private void Attack()
     {
-        if (!Input.GetKey(KeyCode.J))
-            return;
-
         if (mAttackTimer > 0.0f) //生成TailNode的间隔
         {
             mAttackTimer -= Time.deltaTime;
             return;
         }
+
+        if (!Input.GetKey(KeyCode.J))
+            return;
 
         bool isAttackSuccess = false;
         for (int i = 0; i < mFollowedList.Count; i++)
@@ -199,9 +202,9 @@ public class TailController : MonoBehaviour
         if (isAttackSuccess)
         {
             mAttackTimer = mAttackInterval;
-            mFollowedGenerateTimer = Math.Min(mFollowedGenerateInterval * mAttackPenetyRatio,4.8f);
+            mFollowedGenerateTimer = Math.Min(mFollowedGenerateInterval * mAttackPenetyRatio, 4.8f);
         }
-    }   
+    }
 
     private void DeleteNodeAndReshapeTrack(List<TriggerCircle> list)
     {
@@ -224,14 +227,14 @@ public class TailController : MonoBehaviour
             mTrack.InsertRange(prevSearchPos + 1, insertPos);
 
             List<Vector2> ringNodePos = new List<Vector2>();
-            Vector3 averagePos = new Vector3(0.0f, 0.0f,0.0f);
+            Vector3 averagePos = new Vector3(0.0f, 0.0f, 0.0f);
             for (int j = list[i].mMinPos; j <= Math.Min(list[i].mMaxPos, mFollowedList.Count - 1); j++)
             {
                 ringNodePos.Add(new Vector2(mFollowedList[j].transform.position.x, mFollowedList[j].transform.position.y));
                 averagePos += mFollowedList[j].transform.position;
                 Destroy(mFollowedList[j]);
             }
-            GameObject ring = Instantiate(Resources.Load("Prefabs/Ring"), Vector3.zero , Quaternion.identity) as GameObject;
+            GameObject ring = Instantiate(Resources.Load("Prefabs/Ring"), Vector3.zero, Quaternion.identity) as GameObject;
             ring.GetComponent<RingBehavior>().SetColliderPoints(ringNodePos);
 
             mFollowedList.RemoveRange(list[i].mMinPos, list[i].mMaxPos - list[i].mMinPos + 1);
@@ -258,10 +261,17 @@ public class TailController : MonoBehaviour
     //结合两个特殊技能的描述：1. 回溯轨迹 2. 大范围引爆
     private void ReTrace()
     {
-        if (!Input.GetKeyDown(KeyCode.Space))
-            return;
-
         if (mFollowedList.Count < 15)
+            return;
+        else
+        {
+            for (int i = 0; i < mFollowedList.Count; i++)
+            {
+                mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.blue;
+            }
+        }
+
+        if (!Input.GetKeyDown(KeyCode.Space))
             return;
 
         for (int i = 0; i < mTriggerFlags.Count; i++)
@@ -271,7 +281,7 @@ public class TailController : MonoBehaviour
 
         transform.position = mTrack[(mFollowedList[mFollowedList.Count - 1].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx() + 1) * TailNodeBehavior.SearchInterval];
         Instantiate(Resources.Load("Prefabs/Explosion"), transform.position, Quaternion.identity);
-        
+
         mTrack.Clear();
         for (int i = 0; i < mFollowedList.Count; i++)
         {

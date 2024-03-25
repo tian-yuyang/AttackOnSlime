@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356290865617609141}
   - component: {fileID: 7184236453941854719}
+
   m_Layer: 0
   m_Name: CoolDownBar
   m_TagString: Untagged
