@@ -6,12 +6,17 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private int life = 10;
+	private int damage = 0;
     public float speed;
     public float alertDistance = 70f;
 	public Vector3 originPosition;
 
-    // not implemented about hero
     public Lily targetHero;
+
+	// anitmation field
+	public Animator anim; 
+	public HPcontrol hpcontrol;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -22,23 +27,38 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (life <= 0)
+		// life control and HP display
+		hpcontrol.HP = (float)damage / (float)life;
+        if (life <= damage)
         {
             Kill();
         }
+
+		// automatically go back
 		if (GetTargetDistance() > alertDistance && !IsReturned())
 		{
 			ReturnToOrigin();
 		}
     }
 
-    public void Damage(int damage)
+    public void Damage(int newDamage)
     {
-        life -= damage;
+		anim.SetTrigger("hurt_trig");
+        damage += newDamage;
+    }
+
+	public void Heal(int newHeal)
+    {
+        damage -= newHeal;
+		if (damage < 0)
+		{
+			damage = 0;
+		}
     }
 
     public void Kill()
     {
+		anim .SetBool("dead", true);
         Destroy(transform.gameObject);
     }
 
