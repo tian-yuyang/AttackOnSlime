@@ -5,7 +5,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	private float bulletSpeed = 40f;
+
 	static public Lily targetHero;
+
+	// anitmation field
+	public Animator anim; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +32,7 @@ public class Bullet : MonoBehaviour
 
 	void Kill()
     {
+		anim .SetBool("dead", true);
         Destroy(transform.gameObject);
     }
 

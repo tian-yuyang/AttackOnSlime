@@ -51,11 +51,11 @@ public class RemoteEnemy : Enemy
 		GameObject newBullet = null;
 		if (isElite) 
 		{ 
-			newBullet = Instantiate(Resources.Load("Prefabs/TraceBullet") as GameObject);
+			newBullet = Instantiate(Resources.Load("Prefabs/Enemy/TraceBullet") as GameObject);
 		}
 		else
 		{
-			newBullet = Instantiate(Resources.Load("Prefabs/Bullet") as GameObject);
+			newBullet = Instantiate(Resources.Load("Prefabs/Enemy/Bullet") as GameObject);
 		}
 		
 		newBullet.transform.localPosition = transform.localPosition;
