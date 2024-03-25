@@ -11,7 +11,7 @@ using UnityEngine;
 public class TailNodeBehavior : MonoBehaviour
 {
     //TODO(Hangyu) :  «∑Ò–Ë“™Editor”≥…‰£ø
-    public static int SearchInterval = 5;
+    public static int SearchInterval = 3;
 
 
     private GameObject mLeader;
