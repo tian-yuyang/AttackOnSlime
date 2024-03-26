@@ -55,6 +55,14 @@ public class Lily : MonoBehaviour
         // }
     }
 
+    void LateUpdate()
+    {
+        if (HP <= 0.0f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Damage(float damage) //LilyÊÜµ½ÉËº¦
     {
         if (mInvincibleTimer <= 0.0f)
