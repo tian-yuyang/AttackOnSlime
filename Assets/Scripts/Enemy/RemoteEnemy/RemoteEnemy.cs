@@ -44,6 +44,8 @@ public class RemoteEnemy : Enemy
 		SetLife(10);
 		Bullet.SetTargetHero(targetHero);
 		TraceBullet.SetTargetHero(targetHero);
+		Bullet.SetAttack(1);
+		TraceBullet.SetAttack(1);
 	}
 
 	void Attack()
