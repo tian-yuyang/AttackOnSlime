@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 253002652694550441}
   - component: {fileID: 463626242365728960}
   - component: {fileID: 685722032064696709}
+  - component: {fileID: 5276564046595557559}
   m_Layer: 0
   m_Name: Lily
   m_TagString: Player
@@ -100,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a2a1b2d1e8e3c4d87a0d63036ae556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pic: []
+  screenhit: {fileID: 0}
   mSpeed: 5.32
   HP: 100
   mInvincibleTime: 1
@@ -120,6 +123,8 @@ MonoBehaviour:
   mFollowedGenerateInterval: 3
   mAttackInterval: 0.5
   mAttackPenaltyRatio: 1.5
+  TailNodeInterval: 0.71
+  FirstTailNodeOffset: 1.064
 --- !u!50 &463626242365728960
 Rigidbody2D:
   serializedVersion: 4
@@ -182,3 +187,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.61, y: 1.89}
   m_Direction: 1
+--- !u!114 &5276564046595557559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403656726215058535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0

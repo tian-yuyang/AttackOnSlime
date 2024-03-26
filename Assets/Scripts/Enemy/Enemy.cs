@@ -157,4 +157,11 @@ public class Enemy : MonoBehaviour
             ;
         }
     }
+    protected virtual void OnCollisionStay2D(Collision2D objectName)
+    {
+        if (objectName.gameObject.tag == "Map")
+        {
+            ;
+        }
+    }
 }
