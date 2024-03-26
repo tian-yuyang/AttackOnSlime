@@ -115,7 +115,7 @@ public class TailController : MonoBehaviour
         int currentIdx = mFollowedList.Count();
         int searchPos = currentIdx * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset;
 
-        if (searchPos >= mTrack.Count()) //如果当前位置超出了轨迹的范围，则不生成TailNode
+        if (currentIdx >= mMaxTailLength) //如果当前位置超出了轨迹的范围，则不生成TailNode
         {
             return;
         }
@@ -308,7 +308,7 @@ public class TailController : MonoBehaviour
             mTriggerFlags[i] = 0;
         }
 
-        transform.position = mTrack[(mFollowedList[mFollowedList.Count() - 1].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx() + 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.SearchInterval];
+        transform.position = mTrack[(mFollowedList[mFollowedList.Count() - 1].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx()) * TailNodeBehavior.SearchInterval + TailNodeBehavior.SearchInterval];
         Instantiate(Resources.Load("Prefabs/Explosion"), transform.position, Quaternion.identity);
 
         ClearTail();

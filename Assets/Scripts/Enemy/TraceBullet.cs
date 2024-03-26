@@ -36,7 +36,7 @@ public class TraceBullet : MonoBehaviour
         transform.position += transform.up * bulletSpeed * Time.smoothDeltaTime;
     }
 
-    void Kill()
+    public void Kill()
     {
         Destroy(transform.gameObject);
     }
