@@ -61,7 +61,7 @@ public class TailNodeBehavior : MonoBehaviour
             List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             triggerFlags[mCurrentNodeIdx] = 0;
         }
-        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "Bullet")
         {
             mCollidedObject = null;
         }
@@ -69,7 +69,7 @@ public class TailNodeBehavior : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy") // 普攻对炮台无效
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "Bullet") // 普攻对炮台无效
         {
             mCollidedObject = collision.gameObject;
         }
@@ -78,9 +78,29 @@ public class TailNodeBehavior : MonoBehaviour
     public bool Attack()
     {
         if (!mCollidedObject) return false;
-        Enemy enemy = mCollidedObject.GetComponent<Enemy>();
-        if (!enemy) return false;
-        enemy.Damage(mAttack);
+
+        if(mCollidedObject.gameObject.tag == "Bullet")
+        {
+            Bullet bullet = mCollidedObject.GetComponent<Bullet>();
+            if (!bullet)
+            {
+                TraceBullet traceBullet = mCollidedObject.GetComponent<TraceBullet>();
+                if (!traceBullet)
+                    return false;
+                traceBullet.Kill();
+            }
+            else
+            {
+                bullet.Kill();
+            }
+        }
+
+        else
+        {
+            Enemy enemy = mCollidedObject.GetComponent<Enemy>();
+            if (!enemy) return false;
+            enemy.Damage(mAttack);
+        }
         return true;
     }
 

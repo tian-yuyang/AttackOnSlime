@@ -14,12 +14,15 @@ public class SceneSwitcher : MonoBehaviour
     }
 
     public void SwitchGuide() {
-        LoadSceneByName("Guide");
+        LoadSceneByName("test");
     }
-    public void SwitchLevelSelect() {
+    public void SwitchToLevelSelect() {
         LoadSceneByName("LevelSelect");
     }
     public void BackToStart() {
         LoadSceneByName("GameStart");
+    }
+    public void SwitchToLevel(int x) {
+        LoadSceneByName("Level" + x.ToString());
     }
 }
