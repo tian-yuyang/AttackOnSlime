@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
 	// anitmation field
 	public Animator anim;
-	public HPcontrol hpcontrol;
+	public HPController hpcontrol;
 
     // Start is called before the first frame update
     protected virtual void Start()
