@@ -22,13 +22,17 @@ public class UIManager : MonoBehaviour
         // UpdateKillCount(); // This should be called from wherever you handle killing enemies
         
         // Example of updating the HP bar
-        // UpdateHP(50); // Let's assume the player's HP is 50 for this example
+        UpdateHP(); // Let's assume the player's HP is 50 for this example
     }
 
     // Call this method when you want to update the player's HP
-    public void UpdateHP(float hp)
+    public void UpdateHP()
     {
-        hpBar.text = hp.ToString();
+        hpBar.text = lily.HP.ToString();
+        if (lily.HP <= 0)
+        {
+            GameOver();// Game over
+        }
     }
 
     // Call this method to increment kill count when an enemy is killed
@@ -36,5 +40,10 @@ public class UIManager : MonoBehaviour
     {
         killCount++;
         killCountText.text = $"Kills: {killCount}";
+    }
+
+    public void GameOver() {
+        Time.timeScale = 0;
+
     }
 }
