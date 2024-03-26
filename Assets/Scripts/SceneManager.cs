@@ -25,4 +25,10 @@ public class SceneSwitcher : MonoBehaviour
     public void SwitchToLevel(int x) {
         LoadSceneByName("Level" + x.ToString());
     }
+    
+    public void RestartGame()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
