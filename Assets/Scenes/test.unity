@@ -644,6 +644,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 253002652694550441, guid: ff22c4f77cc992347aafc6b78dd4e041, type: 3}
+      propertyPath: mFollowedGenerateInterval
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 463626242365728960, guid: ff22c4f77cc992347aafc6b78dd4e041, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
@@ -1009,7 +1013,7 @@ Transform:
   m_GameObject: {fileID: 470346984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -71.49331, y: 0.35999978, z: -10}
+  m_LocalPosition: {x: -53.225548, y: 0.35999978, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -115,7 +115,7 @@ public class TailController : MonoBehaviour
         int currentIdx = mFollowedList.Count();
         int searchPos = currentIdx * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset;
 
-        if (currentIdx >= mMaxTailLength) //如果当前位置超出了轨迹的范围，则不生成TailNode
+        if (currentIdx >= mMaxTailLength || searchPos >= mTrack.Count()) //如果当前位置超出了轨迹的范围，则不生成TailNode
         {
             return;
         }
