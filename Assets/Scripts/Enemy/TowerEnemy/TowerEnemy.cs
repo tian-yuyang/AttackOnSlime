@@ -29,11 +29,13 @@ public class TowerEnemy : Enemy
 		SetLife(10);
 		Bullet.SetTargetHero(targetHero);
 		TraceBullet.SetTargetHero(targetHero);
+		Bullet.SetAttack(1);
+		TraceBullet.SetAttack(1);
 	}
 
 	void Attack()
 	{
-		GameObject newBullet = Instantiate(Resources.Load("Prefabs/Bullet") as GameObject);
+		GameObject newBullet = Instantiate(Resources.Load("Prefabs/Enemy/Bullet") as GameObject);
 		newBullet.transform.localPosition = transform.localPosition;
 		coolDown.TriggerCoolDown();
 	}
@@ -41,9 +43,5 @@ public class TowerEnemy : Enemy
 	protected override void OnTriggerEnter2D(Collider2D objectName)
     {
 		base.OnTriggerEnter2D(objectName);
-        if (objectName.gameObject.name == "Map")
-        {
-            ;
-        }
     }
 }

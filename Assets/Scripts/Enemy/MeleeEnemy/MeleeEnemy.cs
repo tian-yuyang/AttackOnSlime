@@ -34,6 +34,7 @@ public class MeleeEnemy : Enemy
 	{
 		SetSpeed(3f);
 		SetLife(10);
+		SetAttack(1);
 	}
 
 	void Attack()
@@ -47,9 +48,10 @@ public class MeleeEnemy : Enemy
 	protected override void OnTriggerEnter2D(Collider2D objectName)
     {
 		base.OnTriggerEnter2D(objectName);
-        if (objectName.gameObject.name == "Map")
+
+        if (objectName.gameObject.tag == "Player")
         {
-            ;
+	        targetHero.Damage(GetAttack());
         }
     }
 }

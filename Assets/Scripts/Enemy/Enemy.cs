@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private int life = 10;
+    private int attack = 1;
 	private int damage = 0;
     public float speed;
     public float alertDistance = 70f;
@@ -131,16 +132,22 @@ public class Enemy : MonoBehaviour
 		p += speed * Time.smoothDeltaTime * GetOriginDirection();
 		transform.position = p;
 	}
-    
+
+	public void SetAttack(int newAttack)
+	{
+		attack = newAttack;
+	}
+	
+	public int GetAttack()
+	{
+		return attack;
+	}
+	
     protected virtual void OnTriggerEnter2D(Collider2D objectName)
     {
         if (objectName.gameObject.tag == "Map")
         {
             ;
-        }
-        if (objectName.gameObject.tag == "Player")
-        {
-	        ;
         }
     }
 }
