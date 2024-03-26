@@ -49,10 +49,10 @@ public class Lily : MonoBehaviour
 
         if (mInvincibleTimer > 0.0f) mInvincibleTimer -= Time.deltaTime;
 
-        if (HP <= 0.0f)
-        {
-            Destroy(gameObject);
-        }
+        // if (HP <= 0.0f)
+        // {
+        //     Destroy(gameObject);
+        // }
     }
 
     public void Damage(float damage) //LilyÊÜµ½ÉËº¦

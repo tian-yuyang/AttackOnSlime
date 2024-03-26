@@ -13,11 +13,15 @@ public class UIManager : MonoBehaviour
     private int killCount = 0;
 
     private float maxHealth;
+    public GameObject gameOverPanel;
+
 
     void Start()
     {
         // Example of how you might set the max HP for the player
         maxHealth = lily.HP;
+        gameOverPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -53,6 +57,7 @@ public class UIManager : MonoBehaviour
 
     public void GameOver() {
         Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
 
     }
 }
