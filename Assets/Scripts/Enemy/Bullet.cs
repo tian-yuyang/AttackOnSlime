@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
         }
 		if (objectName.gameObject.tag == "Player")
         {
-			targetHero.Damage();
+			targetHero.Damage(attack);
             Kill();
         }
     }
