@@ -40,7 +40,7 @@ public class RemoteEnemy : Enemy
     
     void Init()
 	{
-		SetSpeed(10f);
+		SetSpeed(1.5f);
 		SetLife(10);
 		Bullet.SetTargetHero(targetHero);
 		TraceBullet.SetTargetHero(targetHero);
@@ -71,9 +71,9 @@ public class RemoteEnemy : Enemy
 		transform.position = p;
 	}
 
-	protected override void OnTriggerEnter2D(Collider2D objectName)
+	protected override void OnCollisionEnter2D(Collision2D objectName)
     {
-		base.OnTriggerEnter2D(objectName);
+		base.OnCollisionEnter2D(objectName);
         if (objectName.gameObject.name == "Map")
         {
             ;
