@@ -7,6 +7,8 @@ public class TraceBullet : MonoBehaviour
     private float bulletSpeed = 40f;
     private int life = 400;
     static private Lily targetHero;
+
+	static public int attack = 1;
     
     // Start is called before the first frame update
     void Start()
@@ -49,16 +51,21 @@ public class TraceBullet : MonoBehaviour
         targetHero = newTargetHero;
     }
 
+	static public void SetAttack(int newAttack)
+	{
+		attack = newAttack;
+	}
+
     void OnTriggerEnter2D(Collider2D objectName)
     {
-        if (objectName.gameObject.name == "Map")
+        if (objectName.gameObject.tag == "Map")
         {
             Kill();
         }
-        if (objectName.gameObject.name == "Hero")
+        if (objectName.gameObject.tag == "Player")
         {
+            targetHero.Damage(attack);
             Kill();
-            // targetHero.Damage();
         }
     }
 }

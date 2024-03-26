@@ -10,9 +10,12 @@ using UnityEngine;
 
 public class TailNodeBehavior : MonoBehaviour
 {
-    //TODO(Hangyu) : 是否需要Editor映射？
-    public static int SearchInterval = 3;
-    public static int FirstSearchPosOffset = 2;
+    public static int SearchInterval;
+    public static int FirstSearchPosOffset;
+
+    //TODO(Hangyu) : 根Enemy保持一致，暂定为int型
+    [Tooltip("普通攻击攻击力")]
+    public int mAttack = 1000;
 
     private GameObject mLeader;
     private int mCurrentNodeIdx;
@@ -22,14 +25,14 @@ public class TailNodeBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //更新tail node位置
-        int searchPosOnTrack = (mCurrentNodeIdx + 1) * SearchInterval + FirstSearchPosOffset;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
+        int searchPosOnTrack = mCurrentNodeIdx * SearchInterval + FirstSearchPosOffset;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
 
         List<Vector3> track = mLeader.GetComponent<TailController>().GetTrack();
         transform.position = track[searchPosOnTrack];
@@ -44,7 +47,7 @@ public class TailNodeBehavior : MonoBehaviour
 
             List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             int collidedNodeIdx = collision.gameObject.GetComponent<TailNodeBehavior>().mCurrentNodeIdx;
-            if(Math.Abs(collidedNodeIdx - mCurrentNodeIdx) > 1)
+            if (Math.Abs(collidedNodeIdx - mCurrentNodeIdx) > 1)
                 triggerFlags[mCurrentNodeIdx] = Math.Min(collidedNodeIdx, mCurrentNodeIdx);
         }
     }
@@ -58,7 +61,7 @@ public class TailNodeBehavior : MonoBehaviour
             List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             triggerFlags[mCurrentNodeIdx] = 0;
         }
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy")
         {
             mCollidedObject = null;
         }
@@ -66,7 +69,7 @@ public class TailNodeBehavior : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy") // 普攻对炮台无效
         {
             mCollidedObject = collision.gameObject;
         }
@@ -74,8 +77,10 @@ public class TailNodeBehavior : MonoBehaviour
 
     public bool Attack()
     {
-        if(!mCollidedObject) return false;
-        Destroy(mCollidedObject);
+        if (!mCollidedObject) return false;
+        Enemy enemy = mCollidedObject.GetComponent<Enemy>();
+        if (!enemy) return false;
+        enemy.Damage(mAttack);
         return true;
     }
 

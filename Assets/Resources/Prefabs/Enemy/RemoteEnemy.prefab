@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 8785117418483867628}
   m_Layer: 0
   m_Name: RemoteEnemy
-  m_TagString: Untagged
+  m_TagString: RemoteEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

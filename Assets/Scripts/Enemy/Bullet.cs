@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 
 	static public Lily targetHero;
 
+	static public int attack = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,16 +44,21 @@ public class Bullet : MonoBehaviour
         return (targetHero.transform.position - transform.position).normalized;
     }
 
+	static public void SetAttack(int newAttack)
+	{
+		attack = newAttack;
+	}
+
 	void OnTriggerEnter2D(Collider2D objectName)
     {
-        if (objectName.gameObject.name == "Map")
+        if (objectName.gameObject.tag == "Map")
         {
             Kill();
         }
-		if (objectName.gameObject.name == "Hero")
+		if (objectName.gameObject.tag == "Player")
         {
+			targetHero.Damage(attack);
             Kill();
-			// targetHero.Damage();
         }
     }
 }

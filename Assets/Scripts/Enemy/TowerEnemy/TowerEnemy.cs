@@ -29,6 +29,8 @@ public class TowerEnemy : Enemy
 		SetLife(10);
 		Bullet.SetTargetHero(targetHero);
 		TraceBullet.SetTargetHero(targetHero);
+		Bullet.SetAttack(1);
+		TraceBullet.SetAttack(1);
 	}
 
 	void Attack()
@@ -41,9 +43,5 @@ public class TowerEnemy : Enemy
 	protected override void OnTriggerEnter2D(Collider2D objectName)
     {
 		base.OnTriggerEnter2D(objectName);
-        if (objectName.gameObject.name == "Map")
-        {
-            ;
-        }
     }
 }
