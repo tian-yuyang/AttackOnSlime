@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
     {
 		// life control and HP display
 		hpcontrol.HP = (float)damage / (float)life;
-		Debug.Log(hpcontrol.HP);
         if (life <= damage)
         {
             Kill();

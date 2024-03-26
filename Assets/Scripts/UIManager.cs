@@ -4,13 +4,21 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public TMP_Text hpBar; // Assign in the inspector
+    public Image hpBar; // Assign in the inspector
     public TMP_Text durationTimeText = null; // Assign in the inspector
     public TMP_Text killCountText = null; // Assign in the inspector
 
     public Lily lily = null; // Assign in the inspector
     private float durationTime = 0f;
     private int killCount = 0;
+
+    private float maxHealth;
+
+    void Start()
+    {
+        // Example of how you might set the max HP for the player
+        maxHealth = lily.HP;
+    }
 
     void Update()
     {
@@ -28,11 +36,12 @@ public class UIManager : MonoBehaviour
     // Call this method when you want to update the player's HP
     public void UpdateHP()
     {
-        hpBar.text = lily.HP.ToString();
         if (lily.HP <= 0)
         {
             GameOver();// Game over
+            return ;
         }
+        hpBar.fillAmount = lily.HP / maxHealth;
     }
 
     // Call this method to increment kill count when an enemy is killed
