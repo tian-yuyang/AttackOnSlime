@@ -2161,8 +2161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f721c8bb3522e439ca6df0e1e3fff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TailNodeInterval: 3
-  FirstTailNodeOffset: 2
 --- !u!4 &1044184769
 Transform:
   m_ObjectHideFlags: 0
