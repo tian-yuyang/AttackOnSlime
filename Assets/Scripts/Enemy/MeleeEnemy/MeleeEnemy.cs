@@ -45,9 +45,9 @@ public class MeleeEnemy : Enemy
 		// coolDown.TriggerCoolDown();
 	}
 
-	protected override void OnCollisionEnter2D(Collision2D objectName)
+    protected override void OnCollisionStay2D(Collision2D objectName)
     {
-		base.OnCollisionEnter2D(objectName);
+		base.OnCollisionStay2D(objectName);
 
         if (objectName.gameObject.tag == "Player")
         {
