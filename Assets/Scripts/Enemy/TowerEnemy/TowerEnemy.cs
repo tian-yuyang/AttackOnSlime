@@ -33,7 +33,7 @@ public class TowerEnemy : Enemy
 
 	void Attack()
 	{
-		GameObject newBullet = Instantiate(Resources.Load("Prefabs/Bullet") as GameObject);
+		GameObject newBullet = Instantiate(Resources.Load("Prefabs/Enemy/Bullet") as GameObject);
 		newBullet.transform.localPosition = transform.localPosition;
 		coolDown.TriggerCoolDown();
 	}
