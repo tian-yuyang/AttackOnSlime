@@ -6,15 +6,19 @@ TagManager:
   tags:
   - Tail
   - Enemy
+  - MeleeEnemy
+  - RemoteEnemy
+  - TowerEnemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - map
   - Water
   - UI
-  - 
-  - 
+  - remoteenemy
+  - hero
   - PostProcessing
   - 
   - 
