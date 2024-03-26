@@ -290,13 +290,13 @@ public class TailController : MonoBehaviour
     //结合两个特殊技能的描述：1. 回溯轨迹 2. 大范围引爆
     private void ReTrace()
     {
-        if (mFollowedList.Count() <= 0)
+        if (mFollowedList.Count() <= 18)
             return;
         else
         {
             for (int i = 0; i < mFollowedList.Count(); i++)
             {
-                ;//mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.blue;
+                mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.blue;
             }
         }
 
