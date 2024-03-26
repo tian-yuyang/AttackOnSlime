@@ -12,6 +12,15 @@ public class TailNodeBehavior : MonoBehaviour
 {
     public static int SearchInterval;
     public static int FirstSearchPosOffset;
+    [Tooltip("材质")]
+    public Material[] mat;
+    [Tooltip("当前材质号")]
+    static public int mat_num = 2;
+    [Tooltip("贴图")]
+    public Sprite[] pic;//贴图
+    SpriteRenderer sr;//贴图父对象
+    [Tooltip("当前贴图号")]
+    static public int sprite_num = 2;//贴图号
 
     //TODO(Hangyu) : 根Enemy保持一致，暂定为int型
     [Tooltip("普通攻击攻击力")]
@@ -22,10 +31,17 @@ public class TailNodeBehavior : MonoBehaviour
 
     private GameObject mCollidedObject = null;
 
+    public void TailChangeSprite(int n)// 更换贴图及材质
+    {
+        if (n >= pic.Length && n < 0) { n = 0; }
+        sr.sprite = pic[n];
+        sr.material = mat[n];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
