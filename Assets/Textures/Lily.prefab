@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 685722032064696709}
   m_Layer: 0
   m_Name: Lily
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mSpeed: 5.32
+  HP: 100
+  mInvincibleTime: 1
 --- !u!114 &253002652694550441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,9 +116,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mRingRemainInterval: 0.05
+  mMaxTailLength: 30
   mFollowedGenerateInterval: 3
   mAttackInterval: 0.5
-  mAttackPenetyRatio: 1.5
+  mAttackPenaltyRatio: 1.5
 --- !u!50 &463626242365728960
 Rigidbody2D:
   serializedVersion: 4
