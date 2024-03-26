@@ -41,6 +41,12 @@ public class TailController : MonoBehaviour
     [Tooltip("攻击惩罚倍率")]
     public float mAttackPenaltyRatio = 1.5f; //攻击惩罚
 
+    [Tooltip("Tail Node间隔")]
+    public float TailNodeInterval = 0.71f;
+
+    [Tooltip("First Tail Node相对于起始位置的偏移")]
+    public float FirstTailNodeOffset = 1.064f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +56,9 @@ public class TailController : MonoBehaviour
         mTriggerFlags = Enumerable.Repeat(0, mMaxTailLength).ToList();
 
         mFollowedGenerateTimer = mFollowedGenerateInterval;
+
+        TailNodeBehavior.FirstSearchPosOffset = (int)MathF.Round(FirstTailNodeOffset * Application.targetFrameRate / GetComponent<Lily>().mSpeed);
+        TailNodeBehavior.SearchInterval = (int)MathF.Round(TailNodeInterval * Application.targetFrameRate / GetComponent<Lily>().mSpeed);
     }
 
     // Update is called once per frame
@@ -104,7 +113,7 @@ public class TailController : MonoBehaviour
         }
 
         int currentIdx = mFollowedList.Count();
-        int searchPos = (currentIdx + 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset;
+        int searchPos = currentIdx * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset;
 
         if (searchPos >= mTrack.Count()) //如果当前位置超出了轨迹的范围，则不生成TailNode
         {
@@ -225,13 +234,14 @@ public class TailController : MonoBehaviour
 
         for (int i = 0; i < list.Count(); i++)
         {
-            int prevSearchPos = Math.Max((list[i].mMinPos - 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset, 0);
+            int prevSearchPos = (list[i].mMinPos - 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset;
+            if (list[i].mMinPos == 0) prevSearchPos = 0;
             int postSearchPos = Math.Min((list[i].mMaxPos + 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset, mTrack.Count() - 1);
             Vector3 prevPos = mTrack[prevSearchPos];
             Vector3 postPos = mTrack[postSearchPos];
             List<Vector3> insertPos = new List<Vector3>();
             int lerpIter = TailNodeBehavior.SearchInterval;
-            if(prevSearchPos == 0) lerpIter += TailNodeBehavior.FirstSearchPosOffset;
+            if(prevSearchPos == 0) lerpIter = TailNodeBehavior.FirstSearchPosOffset;
             for (int j = 1; j < lerpIter; j++)
             {
                 float linearRatio = (float)j / lerpIter;  // x在0~1之间均匀分布
@@ -280,7 +290,7 @@ public class TailController : MonoBehaviour
     //结合两个特殊技能的描述：1. 回溯轨迹 2. 大范围引爆
     private void ReTrace()
     {
-        if (mFollowedList.Count() < 15)
+        if (mFollowedList.Count() <= 18)
             return;
         else
         {

@@ -47,7 +47,10 @@ public class Lily : MonoBehaviour
         transform.Translate(moveVec.y * Vector3.up * mSpeed * Time.smoothDeltaTime, Space.World);
         transform.Translate(moveVec.x * Vector3.right * mSpeed * Time.smoothDeltaTime, Space.World);
 
-        if(mInvincibleTimer > 0.0f) mInvincibleTimer -= Time.deltaTime;
+        //Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //rb.MovePosition(rb.position + moveVec * mSpeed * Time.deltaTime);
+
+        if (mInvincibleTimer > 0.0f) mInvincibleTimer -= Time.deltaTime;
 
         if (HP <= 0.0f)
         {
