@@ -24,12 +24,22 @@ public class TailController : MonoBehaviour
     //Fix bug: 用于松弛的环判定
     private List<TriggerCircle> mCircleList = null;
     private float mRingRemainTimer = 0.0f;
-    public float mRingRemainInterval = 0.08f;
+
+    [Tooltip("环延长判定时间")]
+    public float mRingRemainInterval = 0.05f;
     //
 
+    [Tooltip("最大尾巴长度")]
+    public int mMaxTailLength = 30; //最大尾巴长度
+
+    [Tooltip("生成间隔")]
     public float mFollowedGenerateInterval = 3.0f; //TailNode生成间隔
-    public float mAttackInterval = 1.0f; //攻击间隔
-    public float mAttackPenetyRatio = 2.0f; //攻击惩罚
+
+    [Tooltip("攻击间隔")]
+    public float mAttackInterval = 0.5f; //攻击间隔
+
+    [Tooltip("攻击惩罚倍率")]
+    public float mAttackPenaltyRatio = 1.5f; //攻击惩罚
 
     // Start is called before the first frame update
     void Start()
@@ -37,14 +47,16 @@ public class TailController : MonoBehaviour
         mTrack = new List<Vector3>();
         mFollowedList = new List<GameObject>();
         mCircleList = new List<TriggerCircle>();
-        mTriggerFlags = Enumerable.Repeat(0, Application.targetFrameRate * 4 / TailNodeBehavior.SearchInterval).ToList();
+        mTriggerFlags = Enumerable.Repeat(0, mMaxTailLength).ToList();
+
+        mFollowedGenerateTimer = mFollowedGenerateInterval;
     }
 
     // Update is called once per frame
     void Update()
     {
         mTrack.Insert(0, transform.position);
-        if (mTrack.Count() > Application.targetFrameRate * 4)
+        if (mTrack.Count() > mMaxTailLength * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset + 10 /*magic number: ensure bug-free*/)
         {
             mTrack.RemoveAt(mTrack.Count() - 1);
         }
@@ -202,7 +214,7 @@ public class TailController : MonoBehaviour
         if (isAttackSuccess)
         {
             mAttackTimer = mAttackInterval;
-            mFollowedGenerateTimer = Math.Min(mFollowedGenerateInterval * mAttackPenetyRatio, 4.8f);
+            mFollowedGenerateTimer = Math.Min(mFollowedGenerateInterval * mAttackPenaltyRatio, 4.8f);
         }
     }
 
@@ -222,7 +234,12 @@ public class TailController : MonoBehaviour
             if(prevSearchPos == 0) lerpIter += TailNodeBehavior.FirstSearchPosOffset;
             for (int j = 1; j < lerpIter; j++)
             {
-                insertPos.Add(Vector3.Lerp(prevPos, postPos, (float)j / TailNodeBehavior.SearchInterval));
+                float linearRatio = (float)j / lerpIter;  // x在0~1之间均匀分布
+
+                float lerpRatio = MathF.Sqrt(linearRatio);  // 使用平方根函数进行插值
+                //float lerpRatio = 0.5f * (1.0f - MathF.Cos(linearRatio * MathF.PI));  // 使用正弦函数进行插值，使得两端插值点密，中间插值点稀疏
+
+                insertPos.Add(Vector3.Lerp(prevPos, postPos, lerpRatio));
             }
 
             mTrack.RemoveRange(prevSearchPos + 1, postSearchPos - prevSearchPos - 1);
@@ -284,6 +301,11 @@ public class TailController : MonoBehaviour
         transform.position = mTrack[(mFollowedList[mFollowedList.Count() - 1].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx() + 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.SearchInterval];
         Instantiate(Resources.Load("Prefabs/Explosion"), transform.position, Quaternion.identity);
 
+        ClearTail();
+    }
+
+    public void ClearTail()
+    {
         mTrack.Clear();
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
@@ -291,7 +313,6 @@ public class TailController : MonoBehaviour
         }
 
         mFollowedList.Clear();
-
     }
 
     public List<Vector3> GetTrack()

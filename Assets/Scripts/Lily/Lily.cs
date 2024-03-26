@@ -5,9 +5,14 @@ using System.Diagnostics;
 using System.Drawing;
 using UnityEngine;
 
+[RequireComponent(typeof(TailController))]
 public class Lily : MonoBehaviour
 {
+    [Tooltip("移动速度")]
     public float mSpeed = 5.0f;  //Lily移动速度
+
+    [Tooltip("生命值")]
+    public float HP = 100.0f;  //Lily生命值
 
     private bool mFaceToward = true;  //Lily朝向 —— true为右，false为左
 
@@ -23,19 +28,25 @@ public class Lily : MonoBehaviour
         Vector2 moveVec = Vector2.zero;
         moveVec.y = Input.GetAxis("Vertical");
         moveVec.x = Input.GetAxis("Horizontal");
-        if(moveVec.x > 0)
+        if (moveVec.x > 0)
         {
             mFaceToward = true;
         }
-        else if(moveVec.x < 0)
+        else if (moveVec.x < 0)
         {
             mFaceToward = false;
         }
-        
+
         GetComponent<SpriteRenderer>().flipX = !mFaceToward;
 
         transform.Translate(moveVec.y * Vector3.up * mSpeed * Time.smoothDeltaTime, Space.World);
         transform.Translate(moveVec.x * Vector3.right * mSpeed * Time.smoothDeltaTime, Space.World);
-    }
 
+        if (HP <= 0.0f)
+        {
+            GetComponent<TailController>().ClearTail();
+            Destroy(gameObject);
+        }
+
+    }
 }

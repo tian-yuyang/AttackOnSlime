@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 571297432497782176}
   m_Layer: 0
   m_Name: TowerEnemy
-  m_TagString: Untagged
+  m_TagString: TowerEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

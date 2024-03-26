@@ -10,7 +10,6 @@ using UnityEngine;
 
 public class TailNodeBehavior : MonoBehaviour
 {
-    //TODO(Hangyu) : 是否需要Editor映射？
     public static int SearchInterval = 3;
     public static int FirstSearchPosOffset = 2;
 
@@ -58,7 +57,7 @@ public class TailNodeBehavior : MonoBehaviour
             List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             triggerFlags[mCurrentNodeIdx] = 0;
         }
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy")
         {
             mCollidedObject = null;
         }
@@ -66,7 +65,7 @@ public class TailNodeBehavior : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy") // 普攻对炮台无效
         {
             mCollidedObject = collision.gameObject;
         }
