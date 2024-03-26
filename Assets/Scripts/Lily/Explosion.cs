@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    public float mLifeTime;
+    [Tooltip("爆炸持续时间")]
+    public float mLifeTime = 0.25f;
+
+    [Tooltip("爆炸攻击力")]
+    public int mAttack = 1000;
     // Start is called before the first frame update
     void Start()
     {
-        mLifeTime = 0.25f;
     }
 
     // Update is called once per frame
@@ -21,9 +24,9 @@ public class Explosion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "TowerEnemy")
+        if ( collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "TowerEnemy")
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Enemy>().Damage(mAttack);
         }
     }
 }

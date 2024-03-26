@@ -6,15 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class RingBehavior : MonoBehaviour
 {
-    public float mLifeTime;
+    [Tooltip("环持续时间")]
+    public float mLifeTime = 1.0f;
+
+    [Tooltip("环攻击伤害")]
+    public int mAttack = 1000;
     
     private List<Vector2> mPoints = new List<Vector2>();
 
     // Start is called before the first frame update
     void Start()
     {
-        mLifeTime = 1.0f;
-
         PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
         polygonCollider.SetPath(0, mPoints);
         polygonCollider.offset = new Vector2(0, 0);
@@ -29,9 +31,9 @@ public class RingBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "TowerEnemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "TowerEnemy")
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Enemy>().Damage(mAttack);
         }
     }
 

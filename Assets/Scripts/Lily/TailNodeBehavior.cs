@@ -13,6 +13,11 @@ public class TailNodeBehavior : MonoBehaviour
     public static int SearchInterval = 3;
     public static int FirstSearchPosOffset = 2;
 
+
+    //TODO(Hangyu) : 根Enemy保持一致，暂定为int型
+    [Tooltip("普通攻击攻击力")]
+    public int mAttack = 1000;
+
     private GameObject mLeader;
     private int mCurrentNodeIdx;
 
@@ -57,7 +62,7 @@ public class TailNodeBehavior : MonoBehaviour
             List<int> triggerFlags = mLeader.GetComponent<TailController>().GetTriggerFlags();
             triggerFlags[mCurrentNodeIdx] = 0;
         }
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy")
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy")
         {
             mCollidedObject = null;
         }
@@ -65,7 +70,7 @@ public class TailNodeBehavior : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy") // 普攻对炮台无效
+        if (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy") // 普攻对炮台无效
         {
             mCollidedObject = collision.gameObject;
         }
@@ -74,7 +79,9 @@ public class TailNodeBehavior : MonoBehaviour
     public bool Attack()
     {
         if(!mCollidedObject) return false;
-        Destroy(mCollidedObject);
+        Enemy enemy = mCollidedObject.GetComponent<Enemy>();
+        if (!enemy) return false;
+        enemy.Damage(mAttack);
         return true;
     }
 

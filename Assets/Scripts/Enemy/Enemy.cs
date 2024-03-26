@@ -140,7 +140,8 @@ public class Enemy : MonoBehaviour
         }
         if (objectName.gameObject.tag == "Player")
         {
-	        ;
+            //TODO(Hangyu) : 增加对玩家的伤害 e.g. : objectName.gameObject.GetComponent<Lily>().Damage(1000);
+            ;
         }
     }
 }
