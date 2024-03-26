@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 // ABC
@@ -142,7 +143,14 @@ public class Enemy : MonoBehaviour
 	{
 		return attack;
 	}
-	
+
+    protected virtual void OnCollisionEnter2D(Collision2D objectName)
+    {
+        if (objectName.gameObject.tag == "Map")
+        {
+            ;
+        }
+    }
     protected virtual void OnTriggerEnter2D(Collider2D objectName)
     {
         if (objectName.gameObject.tag == "Map")
