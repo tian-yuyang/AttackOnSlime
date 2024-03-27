@@ -5,7 +5,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public Image hpBar; // Assign in the inspector
-    // public TMP_Text durationTimeText = null; // Assign in the inspector
+    public TMP_Text durationTimeText = null; // Assign in the inspector
     // public TMP_Text killCountText = null; // Assign in the inspector
 
     public Lily lily = null; // Assign in the inspector
@@ -27,8 +27,8 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         // Example of how you might update the duration time every frame
-        // durationTime += Time.deltaTime;
-        // durationTimeText.text = $"Time: {durationTime:F2}s";
+        durationTime += Time.deltaTime;
+        durationTimeText.text = $"Time: {durationTime:F2}s";
 
         // Assuming you have a method to call when an enemy is killed to update the kill count
         // UpdateKillCount(); // This should be called from wherever you handle killing enemies
