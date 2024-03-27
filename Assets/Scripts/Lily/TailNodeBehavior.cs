@@ -6,30 +6,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class TailNodeBehavior : MonoBehaviour
 {
     public static int SearchInterval;
     public static int FirstSearchPosOffset;
+
     [Tooltip("材质")]
     public Material[] mat;
-    [Tooltip("当前材质号")]
-    static public int mat_num = 2;
     [Tooltip("贴图")]
     public Sprite[] pic;//贴图
-    SpriteRenderer sr;//贴图父对象
-    [Tooltip("当前贴图号")]
-    static public int sprite_num = 2;//贴图号
-
     //TODO(Hangyu) : 根Enemy保持一致，暂定为int型
     [Tooltip("普通攻击攻击力")]
     public int mAttack = 1000;
+    [Tooltip("攻击特效持续时间")]
+    public float mAttackEffectTime = 0.15f;
 
     private GameObject mLeader;
     private int mCurrentNodeIdx;
 
     private GameObject mCollidedObject = null;
+    private SpriteRenderer sr = null;
+
+    private float mAttackEffectTimer = 0.0f;
 
     public void TailChangeSprite()// 更换贴图及材质
     {
@@ -51,8 +54,11 @@ public class TailNodeBehavior : MonoBehaviour
         //更新tail node位置
         int searchPosOnTrack = mCurrentNodeIdx * SearchInterval + FirstSearchPosOffset;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
 
+        if (!mLeader) return;
         List<Vector3> track = mLeader.GetComponent<TailController>().GetTrack();
         transform.position = track[searchPosOnTrack];
+
+        OperateAttackEffect();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,11 +98,52 @@ public class TailNodeBehavior : MonoBehaviour
         }
     }
 
+    private void OperateAttackEffect()
+    {
+        if (mAttackEffectTimer > 0.0f)
+        {
+            switch (PlayerPrefs.GetInt("SkinNumber", 0))
+            {
+                case 0:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineGlow", 0.6f);
+                    float currentWidth = GetComponent<SpriteRenderer>().material.GetFloat("_ShineWidth");
+                    float speed = 0.5f / mAttackEffectTime;
+                    currentWidth += speed * Time.deltaTime;
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineWidth", currentWidth);
+                    break;
+                case 1:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.37f);
+                    break;
+                case 2:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.8f);
+                    break;
+            }
+            mAttackEffectTimer -= Time.deltaTime;
+        }
+        else
+        {
+            switch (PlayerPrefs.GetInt("SkinNumber", 0))
+            {
+                case 0:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineGlow", 0.0f);
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineWidth", 0.05f);
+                    break;
+                case 1:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.0f);
+                    break;
+                case 2:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.0f);
+                    break;
+            }
+        }
+    }
+
+
     public bool Attack()
     {
         if (!mCollidedObject) return false;
 
-        if(mCollidedObject.gameObject.tag == "Bullet")
+        if (mCollidedObject.gameObject.tag == "Bullet")
         {
             Bullet bullet = mCollidedObject.GetComponent<Bullet>();
             if (!bullet)
@@ -121,6 +168,10 @@ public class TailNodeBehavior : MonoBehaviour
         return true;
     }
 
+    public void SetAttackEffectTimer()
+    {
+        mAttackEffectTimer = mAttackEffectTime;
+    }
 
     public void SetCurrentNodeIdx(int InNodeIdx)
     {
