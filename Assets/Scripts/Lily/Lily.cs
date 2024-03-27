@@ -8,31 +8,31 @@ using UnityEngine;
 [RequireComponent(typeof(TailController))]
 public class Lily : MonoBehaviour
 {
-    [Tooltip("LilyÌùÍ¼")]
-    public Sprite[] pic;//ÌùÍ¼
-    SpriteRenderer sr;//ÌùÍ¼¸¸¶ÔÏó
-    // static public int sprite_num = 2;//ÌùÍ¼ºÅ
-    Material mat;//µ÷ÕûÉÁË¸
-    [Tooltip("È«ÆÁÊÜ»÷¶¯»­")]
-    public Animator screenhit;//ÊÜ»÷¶¯»­
+    [Tooltip("Lilyï¿½ï¿½Í¼")]
+    public Sprite[] pic;//ï¿½ï¿½Í¼
+    SpriteRenderer sr;//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // static public int sprite_num = 2;//ï¿½ï¿½Í¼ï¿½ï¿½
+    Material mat;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¸
+    [Tooltip("È«ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    public Animator screenhit;//ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    [Tooltip("ÒÆ¶¯ËÙ¶È")]
-    public float mSpeed = 5.0f;  //LilyÒÆ¶¯ËÙ¶È
+    [Tooltip("ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½")]
+    public float mSpeed = 5.0f;  //Lilyï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
 
-    [Tooltip("ÉúÃüÖµ")]
-    public float HP = 1000.0f;  //LilyÉúÃüÖµ
+    [Tooltip("ï¿½ï¿½ï¿½ï¿½Öµ")]
+    public float HP = 1000.0f;  //Lilyï¿½ï¿½ï¿½ï¿½Öµ
 
-    [Tooltip("ÊÜ»÷ºóÎÞµÐÊ±¼ä")]
-    public float mInvincibleTime = 1.0f;  //LilyÊÜ»÷ºóÎÞµÐÊ±¼ä
+    [Tooltip("ï¿½Ü»ï¿½ï¿½ï¿½ï¿½Þµï¿½Ê±ï¿½ï¿½")]
+    public float mInvincibleTime = 1.0f;  //Lilyï¿½Ü»ï¿½ï¿½ï¿½ï¿½Þµï¿½Ê±ï¿½ï¿½
 
-    public void LilyChangeSprite()// Lily ¸ü»»ÌùÍ¼
+    public void LilyChangeSprite()// Lily ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     {
         // if (n >= pic.Length && n < 0) { n = 0; }
         sr.sprite = pic[PlayerPrefs.GetInt("SkinNumber", 0)];
     }
 
-    private bool mFaceToward = true;  //Lily³¯Ïò ¡ª¡ª trueÎªÓÒ£¬falseÎª×ó
-    private float mInvincibleTimer = 0.0f;  //ÎÞµÐÊ±¼ä¼ÆÊ±Æ÷
+    private bool mFaceToward = true;  //Lilyï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ trueÎªï¿½Ò£ï¿½falseÎªï¿½ï¿½
+    private float mInvincibleTimer = 0.0f;  //ï¿½Þµï¿½Ê±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 
 
     // Start is called before the first frame update
@@ -74,7 +74,7 @@ public class Lily : MonoBehaviour
         }
     }
 
-    public void Damage(float damage) //LilyÊÜµ½ÉËº¦
+    public void Damage(float damage) //Lilyï¿½Üµï¿½ï¿½Ëºï¿½
     {
         if (mInvincibleTimer <= 0.0f)
         {
@@ -85,7 +85,7 @@ public class Lily : MonoBehaviour
             Invoke("Stop_flicker", mInvincibleTime);
         }
     }
-    private void Stop_flicker()//Í£Ö¹ÉÁË¸
+    private void Stop_flicker()//Í£Ö¹ï¿½ï¿½Ë¸
     {
         mat.DisableKeyword("FLICKER_ON");
     }

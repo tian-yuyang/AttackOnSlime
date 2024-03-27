@@ -19,6 +19,10 @@ public class RemoteEnemy : Enemy
     protected override void Update()
     {
 		base.Update();
+		
+		Bullet.SetTargetHero(targetHero);
+		TraceBullet.SetTargetHero(targetHero);
+		
         // alert mode
 		if (GetTargetDistance() < alertDistance && coolDown.ReadyForNext())
 		{

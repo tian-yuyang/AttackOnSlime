@@ -20,13 +20,13 @@ public class UIManager : MonoBehaviour
     public Slider slider;
 
 
-    void Start()
+    void Awake()
     {
+        Time.timeScale = 1;
         // Example of how you might set the max HP for the player
         maxHealth = lily.GetComponent<Lily>().HP;
         maxCD = lily.GetComponent<TailController>().mAttackInterval;
         gameOverPanel.SetActive(false);
-        Time.timeScale = 1;
     }
 
     void Update()
@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
     // Call this method when you want to update the player's HP
     public void UpdateHP()
     {
+        if (!lily) return;
         if (lily.GetComponent<Lily>().HP <= 0)
         {
             GameOver();// Game over
@@ -55,6 +56,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCD()
     {
+        if (!lily) return;
         slider.value =  1 - lily.GetComponent<TailController>().GetAttackTimer() / maxCD;
     }
 

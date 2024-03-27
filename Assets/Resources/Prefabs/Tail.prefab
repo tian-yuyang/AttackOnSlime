@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3f6fd19259afd0646a47d78083d048eb, type: 2}
+  - {fileID: 2100000, guid: 407f8cd35316b894eb4ae7e8e1e34159, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 86e4c64b93a566f4b873e06a8f5aa7c0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e2d312854376fb74d9666a1fe36f4521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,7 +144,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.7
 --- !u!50 &1444505038907620819
 Rigidbody2D:
   serializedVersion: 4
