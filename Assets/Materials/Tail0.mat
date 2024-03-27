@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - HSV_ON
   - OUTBASE8DIR_ON
   - OUTBASE_ON
   - OUTTEX_ON
@@ -150,7 +151,7 @@ Material:
     - _HologramUnmodAmount: 0
     - _HsvBright: 1
     - _HsvSaturation: 1
-    - _HsvShift: 180
+    - _HsvShift: 0
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
@@ -171,7 +172,7 @@ Material:
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
-    - _OutlineGlow: 31.23
+    - _OutlineGlow: 6
     - _OutlinePixelWidth: 1
     - _OutlineTexXSpeed: 6.29
     - _OutlineTexYSpeed: 0
@@ -191,9 +192,9 @@ Material:
     - _ShadowAlpha: 0.5
     - _ShadowX: 0.1
     - _ShadowY: -0.05
-    - _ShakeUvSpeed: 2.5
-    - _ShakeUvX: 1.5
-    - _ShakeUvY: 1
+    - _ShakeUvSpeed: 4
+    - _ShakeUvX: 4
+    - _ShakeUvY: 4
     - _ShineGlow: 0
     - _ShineLocation: 0.48
     - _ShineRotate: 0.24
@@ -211,7 +212,7 @@ Material:
     - _WaveY: 0.96
     - _ZTestMode: 4
     - _ZWrite: 0
-    - _ZoomUvAmount: 0.1
+    - _ZoomUvAmount: 0.5
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
