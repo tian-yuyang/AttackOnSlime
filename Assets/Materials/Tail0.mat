@@ -15,6 +15,7 @@ Material:
   - OUTBASE8DIR_ON
   - OUTBASE_ON
   - OUTTEX_ON
+  - SHINE_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -193,24 +194,24 @@ Material:
     - _ShakeUvSpeed: 2.5
     - _ShakeUvX: 1.5
     - _ShakeUvY: 1
-    - _ShineGlow: 1
-    - _ShineLocation: 0.5
-    - _ShineRotate: 0
-    - _ShineWidth: 0.1
+    - _ShineGlow: 0
+    - _ShineLocation: 0.48
+    - _ShineRotate: 0.24
+    - _ShineWidth: 0.05
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
-    - _TwistUvAmount: 1
+    - _TwistUvAmount: 0
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
     - _TwistUvRadius: 0.75
     - _WaveAmount: 7
     - _WaveSpeed: 10
     - _WaveStrength: 7.5
-    - _WaveX: 0
-    - _WaveY: 0.5
+    - _WaveX: 1
+    - _WaveY: 0.96
     - _ZTestMode: 4
     - _ZWrite: 0
-    - _ZoomUvAmount: 0.5
+    - _ZoomUvAmount: 0.1
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

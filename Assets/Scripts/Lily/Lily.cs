@@ -64,11 +64,6 @@ public class Lily : MonoBehaviour
         transform.Translate(moveVec.x * Vector3.right * mSpeed * Time.smoothDeltaTime, Space.World);
 
         if (mInvincibleTimer > 0.0f) mInvincibleTimer -= Time.deltaTime;
-
-        // if (HP <= 0.0f)
-        // {
-        //     Destroy(gameObject);
-        // }
     }
 
     void LateUpdate()

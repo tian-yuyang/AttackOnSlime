@@ -189,13 +189,11 @@ public class TailController : MonoBehaviour
     {
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
-            mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 0.0f);
             mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.white;
             for (int j = 0; j < list.Count(); j++)
             {
                 if (i >= list[j].mMinPos && i <= list[j].mMaxPos)
                 {
-                    mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 1.0f);
                     mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.red;
                 }
             }
@@ -217,7 +215,9 @@ public class TailController : MonoBehaviour
         bool isAttackSuccess = false;
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
-            isAttackSuccess |= mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+            bool currentSuccess = mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+            isAttackSuccess |= currentSuccess;
+            if (currentSuccess) mFollowedList[i].GetComponent<TailNodeBehavior>().SetAttackEffectTimer();
         }
 
         if (isAttackSuccess)

@@ -16,6 +16,7 @@ Material:
   - ROTATEUV_ON
   - SHAKEUV_ON
   - TWISTUV_ON
+  - ZOOMUV_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -115,7 +116,7 @@ Material:
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
-    - _FishEyeUvAmount: 0.15
+    - _FishEyeUvAmount: 0
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
     - _FlickerPercent: 0.05
@@ -138,8 +139,8 @@ Material:
     - _GreyscaleBlend: 1
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
-    - _HandDrawnAmount: 10
-    - _HandDrawnSpeed: 5
+    - _HandDrawnAmount: 20
+    - _HandDrawnSpeed: 15
     - _HitEffectBlend: 1
     - _HitEffectGlow: 5
     - _HologramBlend: 1
@@ -178,7 +179,7 @@ Material:
     - _OutlineWidth: 0.004
     - _OverlayBlend: 1
     - _OverlayGlow: 1
-    - _PinchUvAmount: 0.35
+    - _PinchUvAmount: 0
     - _PixelateSize: 32
     - _PosterizeGamma: 0.75
     - _PosterizeNumColors: 8
@@ -204,14 +205,14 @@ Material:
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
     - _TwistUvRadius: 0.75
-    - _WaveAmount: 12.2
+    - _WaveAmount: 25
     - _WaveSpeed: 24.3
-    - _WaveStrength: 18.7
-    - _WaveX: 0
-    - _WaveY: 0.5
+    - _WaveStrength: 25
+    - _WaveX: 1
+    - _WaveY: 1
     - _ZTestMode: 4
     - _ZWrite: 0
-    - _ZoomUvAmount: 0.5
+    - _ZoomUvAmount: 1
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

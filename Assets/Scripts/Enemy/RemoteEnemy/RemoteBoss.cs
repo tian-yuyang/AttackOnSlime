@@ -9,6 +9,8 @@ public class RemoteBoss : Enemy
     public float angle = 45f;
     public CoolDownBar coolDown = null;
 
+    private int counter = 0;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -23,7 +25,15 @@ public class RemoteBoss : Enemy
         // alert mode
         if (GetTargetDistance() < alertDistance && coolDown.ReadyForNext())
         {
-            Attack();
+            if (counter % 4 == 0)
+            {
+                AdvanceAttack();
+            }
+            else
+            {
+                Attack();
+            }
+            counter = (counter + 1) % 60;
         }
     }
 
@@ -39,7 +49,7 @@ public class RemoteBoss : Enemy
         GrowingBullet.SetAttack(1);
     }
 
-    void Attack()
+    void AdvanceAttack()
     {
         GameObject newBullet = null;
         for (float i = -angle; i < angle; i += angle * 2 / (float)numBullets)
@@ -51,6 +61,14 @@ public class RemoteBoss : Enemy
             newBullet.transform.rotation = Quaternion.FromToRotation(Vector3.up, v);
             newBullet.transform.Rotate(Vector3.forward, i);
         }
+        coolDown.TriggerCoolDown();
+    }
+    
+    void Attack()
+    {
+        GameObject newBullet = null;
+        newBullet = Instantiate(Resources.Load("Prefabs/Enemy/Bullet") as GameObject);
+        newBullet.transform.localPosition = transform.localPosition;
         coolDown.TriggerCoolDown();
     }
 
