@@ -753,7 +753,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 253002652694550441, guid: ff22c4f77cc992347aafc6b78dd4e041, type: 3}
       propertyPath: mFollowedGenerateInterval
-      value: 1
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 463626242365728960, guid: ff22c4f77cc992347aafc6b78dd4e041, type: 3}
       propertyPath: m_CollisionDetection
