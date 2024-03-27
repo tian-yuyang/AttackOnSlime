@@ -33,8 +33,10 @@ public class RemoteBoss : Enemy
         SetLife(10);
         Bullet.SetTargetHero(targetHero);
         TraceBullet.SetTargetHero(targetHero);
+        GrowingBullet.SetTargetHero(targetHero);
         Bullet.SetAttack(1);
         TraceBullet.SetAttack(1);
+        GrowingBullet.SetAttack(1);
     }
 
     void Attack()
