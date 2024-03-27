@@ -51,7 +51,9 @@ public class GrowingBullet : MonoBehaviour
 
     public Vector3 GetTargetDirection()
     {
-        return (targetHero.transform.position - transform.position).normalized;
+        Vector3 v = targetHero.transform.position - transform.position;
+        v.z = 0;
+        return v.normalized;
     }
 
     static public void SetAttack(int newAttack)
