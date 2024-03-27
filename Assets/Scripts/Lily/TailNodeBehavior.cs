@@ -14,7 +14,6 @@ public class TailNodeBehavior : MonoBehaviour
 {
     public static int SearchInterval;
     public static int FirstSearchPosOffset;
-    public static int CurrentMaterial = 2;
 
     [Tooltip("材质")]
     public Material[] mat;
@@ -34,17 +33,18 @@ public class TailNodeBehavior : MonoBehaviour
 
     private float mAttackEffectTimer = 0.0f;
 
-    public void TailChangeSprite(int n)// 更换贴图及材质
+    public void TailChangeSprite()// 更换贴图及材质
     {
-        sr.sprite = pic[n];
-        sr.material = mat[n];
+        // if (n >= pic.Length && n < 0) { n = 0; }
+        sr.sprite = pic[PlayerPrefs.GetInt("SkinNumber", 0)];
+        sr.material = mat[PlayerPrefs.GetInt("SkinNumber", 0)];
     }
 
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        TailChangeSprite(CurrentMaterial);
+        TailChangeSprite();
     }
 
     // Update is called once per frame
@@ -101,12 +101,12 @@ public class TailNodeBehavior : MonoBehaviour
     {
         if(mAttackEffectTimer > 0.0f)
         {
-            if (CurrentMaterial == 1)
+            if (PlayerPrefs.GetInt("SkinNumber", 0) == 1)
             {
                 GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.37f);
             }
 
-            if (CurrentMaterial == 2)
+            if (PlayerPrefs.GetInt("SkinNumber", 0) == 2)
             {
                 GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.8f);
             }
@@ -115,11 +115,11 @@ public class TailNodeBehavior : MonoBehaviour
         }
         else
         {
-            if (CurrentMaterial == 1)
+            if (PlayerPrefs.GetInt("SkinNumber", 0) == 1)
             {
                 GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.0f);
             }
-            if (CurrentMaterial == 2)
+            if (PlayerPrefs.GetInt("SkinNumber", 0) == 2)
             {
                 GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.0f);
             }

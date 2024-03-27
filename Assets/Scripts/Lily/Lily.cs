@@ -10,9 +10,9 @@ public class Lily : MonoBehaviour
 {
     [Tooltip("Lily贴图")]
     public Sprite[] pic;//贴图
-   
-    static public int sprite_num = 2;//贴图号
-
+    SpriteRenderer sr;//贴图父对象
+    // static public int sprite_num = 2;//贴图号
+    Material mat;//调整闪烁
     [Tooltip("全屏受击动画")]
     public Animator screenhit;//受击动画
 
@@ -25,14 +25,12 @@ public class Lily : MonoBehaviour
     [Tooltip("受击后无敌时间")]
     public float mInvincibleTime = 1.0f;  //Lily受击后无敌时间
 
-    public void LilyChangeSprite(int n)// Lily 更换贴图
+    public void LilyChangeSprite()// Lily 更换贴图
     {
-        if (n >= pic.Length && n < 0) { n = 0; }
-        sr.sprite = pic[sprite_num];
+        // if (n >= pic.Length && n < 0) { n = 0; }
+        sr.sprite = pic[PlayerPrefs.GetInt("SkinNumber", 0)];
     }
 
-    private SpriteRenderer sr = null;
-    private Material mat;//调整闪烁
     private bool mFaceToward = true;  //Lily朝向 —— true为右，false为左
     private float mInvincibleTimer = 0.0f;  //无敌时间计时器
 
@@ -42,6 +40,7 @@ public class Lily : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         mat = GetComponent<Renderer>().material;
+        LilyChangeSprite();
     }
 
     // Update is called once per frame
