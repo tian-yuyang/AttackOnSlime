@@ -6,6 +6,8 @@ public class Explosion : MonoBehaviour
 {
     [Tooltip("爆炸持续时间")]
     public float mLifeTime = 0.25f;
+    [Tooltip("特效持续时间")]
+    public float mShowTime = 1.25f;
 
     [Tooltip("爆炸攻击力")]
     public int mAttack = 1000;
@@ -18,13 +20,14 @@ public class Explosion : MonoBehaviour
     void Update()
     {
         mLifeTime -= Time.deltaTime;
-        if (mLifeTime <= 0.0f) Destroy(gameObject);
-        GetComponent<SpriteRenderer>().material.SetFloat("_FadeAmount", 1 - mLifeTime * 4.0f);
+        mShowTime -= Time.deltaTime;
+        if (mShowTime <= 0.0f) Destroy(gameObject);
+        GetComponent<SpriteRenderer>().material.SetFloat("_FadeAmount", 1.25f - mShowTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ( collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "TowerEnemy")
+        if ( mLifeTime >= 0 && (collision.gameObject.tag == "MeleeEnemy" || collision.gameObject.tag == "RemoteEnemy" || collision.gameObject.tag == "TowerEnemy"))
         {
             collision.gameObject.GetComponent<Enemy>().Damage(mAttack);
         }
