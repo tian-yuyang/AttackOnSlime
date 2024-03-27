@@ -151,7 +151,7 @@ Material:
     - _HologramStripesSpeed: 4.5
     - _HologramUnmodAmount: 0
     - _HsvBright: 1
-    - _HsvSaturation: 1
+    - _HsvSaturation: 2
     - _HsvShift: 180
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 15.06
@@ -227,7 +227,7 @@ Material:
     - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
-    - _GlowColor: {r: 0.8773585, g: 0.79082125, b: 0, a: 1}
+    - _GlowColor: {r: 0.8773585, g: 0.7908213, b: 0, a: 1}
     - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
     - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
     - _GradTopLeftCol: {r: 1, g: 0, b: 0, a: 1}
