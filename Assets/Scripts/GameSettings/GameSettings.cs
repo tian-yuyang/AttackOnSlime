@@ -8,7 +8,8 @@ public class GameSettings : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        Application.targetFrameRate = 30; //锁定三十帧
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = (int)(1.0f / Time.smoothDeltaTime); //锁定三十帧
     }
     void Start()
     {
