@@ -19,6 +19,9 @@ public class SceneSwitcher : MonoBehaviour
     public void SwitchToLevelSelect() {
         LoadSceneByName("LevelSelect");
     }
+    public void SwitchToChangeSkin() {
+        LoadSceneByName("ChangeSkin");
+    }
     public void BackToStart() {
         LoadSceneByName("GameStart");
     }
