@@ -10,9 +10,9 @@ public class Lily : MonoBehaviour
 {
     [Tooltip("Lily贴图")]
     public Sprite[] pic;//贴图
-    SpriteRenderer sr;//贴图父对象
+   
     static public int sprite_num = 2;//贴图号
-    Material mat;//调整闪烁
+
     [Tooltip("全屏受击动画")]
     public Animator screenhit;//受击动画
 
@@ -31,6 +31,8 @@ public class Lily : MonoBehaviour
         sr.sprite = pic[sprite_num];
     }
 
+    private SpriteRenderer sr = null;
+    private Material mat;//调整闪烁
     private bool mFaceToward = true;  //Lily朝向 —— true为右，false为左
     private float mInvincibleTimer = 0.0f;  //无敌时间计时器
 
@@ -63,11 +65,6 @@ public class Lily : MonoBehaviour
         transform.Translate(moveVec.x * Vector3.right * mSpeed * Time.smoothDeltaTime, Space.World);
 
         if (mInvincibleTimer > 0.0f) mInvincibleTimer -= Time.deltaTime;
-
-        // if (HP <= 0.0f)
-        // {
-        //     Destroy(gameObject);
-        // }
     }
 
     void LateUpdate()

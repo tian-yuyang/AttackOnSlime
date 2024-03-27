@@ -6,34 +6,36 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TailNodeBehavior : MonoBehaviour
 {
     public static int SearchInterval;
     public static int FirstSearchPosOffset;
+    public static int CurrentMaterial = 2;
+
     [Tooltip("材质")]
     public Material[] mat;
-    [Tooltip("当前材质号")]
-    static public int mat_num = 2;
     [Tooltip("贴图")]
     public Sprite[] pic;//贴图
-    SpriteRenderer sr;//贴图父对象
-    [Tooltip("当前贴图号")]
-    static public int sprite_num = 2;//贴图号
-
     //TODO(Hangyu) : 根Enemy保持一致，暂定为int型
     [Tooltip("普通攻击攻击力")]
     public int mAttack = 1000;
+    [Tooltip("攻击特效持续时间")]
+    public float mAttackEffectTime = 0.15f;
 
     private GameObject mLeader;
     private int mCurrentNodeIdx;
 
     private GameObject mCollidedObject = null;
+    private SpriteRenderer sr = null;
+
+    private float mAttackEffectTimer = 0.0f;
 
     public void TailChangeSprite(int n)// 更换贴图及材质
     {
-        if (n >= pic.Length && n < 0) { n = 0; }
         sr.sprite = pic[n];
         sr.material = mat[n];
     }
@@ -42,6 +44,7 @@ public class TailNodeBehavior : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        TailChangeSprite(CurrentMaterial);
     }
 
     // Update is called once per frame
@@ -50,8 +53,11 @@ public class TailNodeBehavior : MonoBehaviour
         //更新tail node位置
         int searchPosOnTrack = mCurrentNodeIdx * SearchInterval + FirstSearchPosOffset;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
 
+        if (!mLeader) return;
         List<Vector3> track = mLeader.GetComponent<TailController>().GetTrack();
         transform.position = track[searchPosOnTrack];
+
+        OperateAttackEffect();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -91,6 +97,36 @@ public class TailNodeBehavior : MonoBehaviour
         }
     }
 
+    private void OperateAttackEffect()
+    {
+        if(mAttackEffectTimer > 0.0f)
+        {
+            if (CurrentMaterial == 1)
+            {
+                GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.37f);
+            }
+
+            if (CurrentMaterial == 2)
+            {
+                GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.8f);
+            }
+
+            mAttackEffectTimer -= Time.deltaTime;
+        }
+        else
+        {
+            if (CurrentMaterial == 1)
+            {
+                GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.0f);
+            }
+            if (CurrentMaterial == 2)
+            {
+                GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.0f);
+            }
+        }
+    }
+
+
     public bool Attack()
     {
         if (!mCollidedObject) return false;
@@ -120,6 +156,10 @@ public class TailNodeBehavior : MonoBehaviour
         return true;
     }
 
+    public void SetAttackEffectTimer()
+    {
+        mAttackEffectTimer = mAttackEffectTime;
+    }
 
     public void SetCurrentNodeIdx(int InNodeIdx)
     {

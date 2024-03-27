@@ -217,7 +217,9 @@ public class TailController : MonoBehaviour
         bool isAttackSuccess = false;
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
-            isAttackSuccess |= mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+            bool currentSuccess = mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+            isAttackSuccess |= currentSuccess;
+            if (currentSuccess) mFollowedList[i].GetComponent<TailNodeBehavior>().SetAttackEffectTimer();
         }
 
         if (isAttackSuccess)
