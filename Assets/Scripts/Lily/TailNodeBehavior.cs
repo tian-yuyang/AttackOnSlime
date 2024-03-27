@@ -167,6 +167,21 @@ public class TailNodeBehavior : MonoBehaviour
         }
         return true;
     }
+    
+    public void SetHueShift(float hue)
+    {
+        GetComponent<SpriteRenderer>().material.SetFloat("_HsvShift", hue);
+    }
+
+    public void SetSaturation(float saturation)
+    {
+        GetComponent<SpriteRenderer>().material.SetFloat("_HsvSaturation", saturation);
+    }
+
+    public void SetBrightness(float brightness)
+    {
+        GetComponent<SpriteRenderer>().material.SetFloat("_HsvBright", brightness);
+    }
 
     public void SetAttackEffectTimer()
     {
