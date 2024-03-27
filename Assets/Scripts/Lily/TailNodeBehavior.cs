@@ -31,17 +31,18 @@ public class TailNodeBehavior : MonoBehaviour
 
     private GameObject mCollidedObject = null;
 
-    public void TailChangeSprite(int n)// 更换贴图及材质
+    public void TailChangeSprite()// 更换贴图及材质
     {
-        if (n >= pic.Length && n < 0) { n = 0; }
-        sr.sprite = pic[n];
-        sr.material = mat[n];
+        // if (n >= pic.Length && n < 0) { n = 0; }
+        sr.sprite = pic[PlayerPrefs.GetInt("SkinNumber", 0)];
+        sr.material = mat[PlayerPrefs.GetInt("SkinNumber", 0)];
     }
 
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        TailChangeSprite();
     }
 
     // Update is called once per frame
