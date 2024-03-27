@@ -189,13 +189,11 @@ public class TailController : MonoBehaviour
     {
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
-            mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 0.0f);
             mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.white;
             for (int j = 0; j < list.Count(); j++)
             {
                 if (i >= list[j].mMinPos && i <= list[j].mMaxPos)
                 {
-                    mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 1.0f);
                     mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.red;
                 }
             }

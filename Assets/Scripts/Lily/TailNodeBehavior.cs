@@ -10,6 +10,7 @@ using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class TailNodeBehavior : MonoBehaviour
 {
     public static int SearchInterval;
@@ -99,29 +100,40 @@ public class TailNodeBehavior : MonoBehaviour
 
     private void OperateAttackEffect()
     {
-        if(mAttackEffectTimer > 0.0f)
+        if (mAttackEffectTimer > 0.0f)
         {
-            if (PlayerPrefs.GetInt("SkinNumber", 0) == 1)
+            switch (PlayerPrefs.GetInt("SkinNumber", 0))
             {
-                GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.37f);
+                case 0:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineGlow", 0.6f);
+                    float currentWidth = GetComponent<SpriteRenderer>().material.GetFloat("_ShineWidth");
+                    float speed = 0.5f / mAttackEffectTime;
+                    currentWidth += speed * Time.deltaTime;
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineWidth", currentWidth);
+                    break;
+                case 1:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.37f);
+                    break;
+                case 2:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.8f);
+                    break;
             }
-
-            if (PlayerPrefs.GetInt("SkinNumber", 0) == 2)
-            {
-                GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.8f);
-            }
-
             mAttackEffectTimer -= Time.deltaTime;
         }
         else
         {
-            if (PlayerPrefs.GetInt("SkinNumber", 0) == 1)
+            switch (PlayerPrefs.GetInt("SkinNumber", 0))
             {
-                GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.0f);
-            }
-            if (PlayerPrefs.GetInt("SkinNumber", 0) == 2)
-            {
-                GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.0f);
+                case 0:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineGlow", 0.0f);
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ShineWidth", 0.05f);
+                    break;
+                case 1:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_FishEyeUvAmount", 0.0f);
+                    break;
+                case 2:
+                    GetComponent<SpriteRenderer>().material.SetFloat("_ZoomUvAmount", 1.0f);
+                    break;
             }
         }
     }
@@ -131,7 +143,7 @@ public class TailNodeBehavior : MonoBehaviour
     {
         if (!mCollidedObject) return false;
 
-        if(mCollidedObject.gameObject.tag == "Bullet")
+        if (mCollidedObject.gameObject.tag == "Bullet")
         {
             Bullet bullet = mCollidedObject.GetComponent<Bullet>();
             if (!bullet)
