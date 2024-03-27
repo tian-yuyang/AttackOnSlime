@@ -75,7 +75,7 @@ public class TailController : MonoBehaviour
         List<TriggerCircle> list = ExtractCircleOnTrack();
         LooseRingRemainJudge(list);
 
-        TestColor(mCircleList);
+        RingColorDisplay(mCircleList);
 
         {
             Attack(); //ÆÕ¹¥
@@ -185,18 +185,43 @@ public class TailController : MonoBehaviour
         return list;
     }
 
-    private void TestColor(List<TriggerCircle> list)
+    private void RingColorDisplay(List<TriggerCircle> list)
     {
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
-            mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 0.0f);
-            mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.white;
+            switch (PlayerPrefs.GetInt("SkinNumber", 0))
+            {
+                case 0:
+                    mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineGlow", 6.0f);
+                    break;
+                case 1:
+                    mFollowedList[i].GetComponent<SpriteRenderer>().material.SetColor("_GlowColor", new Color(0.8773585f, 0.7908213f, 0.0f));
+                    break;
+                case 2:
+                    mFollowedList[i].GetComponent<TailNodeBehavior>().SetHueShift(0.0f);
+                    mFollowedList[i].GetComponent<TailNodeBehavior>().SetSaturation(1.0f);
+                    mFollowedList[i].GetComponent<TailNodeBehavior>().SetBrightness(1.0f);
+                    break;
+            }
+
             for (int j = 0; j < list.Count(); j++)
             {
                 if (i >= list[j].mMinPos && i <= list[j].mMaxPos)
                 {
-                    mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineAlpha", 1.0f);
-                    mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.red;
+                    switch(PlayerPrefs.GetInt("SkinNumber", 0))
+                    {
+                        case 0:
+                            mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_OutlineGlow", 36.23f);
+                            break;
+                        case 1:
+                            mFollowedList[i].GetComponent<SpriteRenderer>().material.SetColor("_GlowColor", new Color(0.8113207f, 0.1508497f, 0.0f));
+                            break;
+                        case 2:
+                            mFollowedList[i].GetComponent<TailNodeBehavior>().SetHueShift(0.0f);
+                            mFollowedList[i].GetComponent<TailNodeBehavior>().SetSaturation(2.0f);
+                            mFollowedList[i].GetComponent<TailNodeBehavior>().SetBrightness(1.5f);
+                            break;
+                    }
                 }
             }
 
@@ -217,7 +242,9 @@ public class TailController : MonoBehaviour
         bool isAttackSuccess = false;
         for (int i = 0; i < mFollowedList.Count(); i++)
         {
-            isAttackSuccess |= mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+            bool currentSuccess = mFollowedList[i].GetComponent<TailNodeBehavior>().Attack();
+            isAttackSuccess |= currentSuccess;
+            if (currentSuccess) mFollowedList[i].GetComponent<TailNodeBehavior>().SetAttackEffectTimer();
         }
 
         if (isAttackSuccess)
@@ -294,10 +321,10 @@ public class TailController : MonoBehaviour
             return;
         else
         {
-            for (int i = 0; i < mFollowedList.Count(); i++)
+            /*for (int i = 0; i < mFollowedList.Count(); i++)
             {
                 mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.blue;
-            }
+            }*/
         }
 
         if (!Input.GetKeyDown(KeyCode.Space))

@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour
 
     public float GetTargetDistance()
     {
+        if (!targetHero) return 0.0f;
         Vector3 v = transform.position - targetHero.transform.position;
 		v.z = 0;
 		return v.magnitude;
@@ -112,6 +113,7 @@ public class Enemy : MonoBehaviour
 
     public Vector3 GetTargetDirection()
     {
+        if (!targetHero) return Vector3.zero;
         Vector3 v = targetHero.transform.position - transform.position;
 		v.z = 0;
 		return v.normalized;

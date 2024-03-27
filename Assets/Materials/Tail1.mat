@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - ALPHACUTOFF_ON
+  - FISHEYE_ON
   - GHOST_ON
   - GLOW_ON
   - SHAKEUV_ON
@@ -116,7 +117,7 @@ Material:
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
-    - _FishEyeUvAmount: 0.35
+    - _FishEyeUvAmount: 0
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
     - _FlickerPercent: 0.05
@@ -139,8 +140,8 @@ Material:
     - _GreyscaleBlend: 1
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
-    - _HandDrawnAmount: 10
-    - _HandDrawnSpeed: 5
+    - _HandDrawnAmount: 16.7
+    - _HandDrawnSpeed: 15
     - _HitEffectBlend: 1
     - _HitEffectGlow: 5
     - _HologramBlend: 1
@@ -150,7 +151,7 @@ Material:
     - _HologramStripesSpeed: 4.5
     - _HologramUnmodAmount: 0
     - _HsvBright: 1
-    - _HsvSaturation: 1
+    - _HsvSaturation: 2
     - _HsvShift: 180
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 15.06
@@ -186,7 +187,7 @@ Material:
     - _PosterizeOutline: 0
     - _RandomSeed: 0
     - _RectSize: 1
-    - _RotateUvAmount: 0
+    - _RotateUvAmount: 6.28
     - _RoundWaveSpeed: 2
     - _RoundWaveStrength: 0.7
     - _ShadowAlpha: 0.5
@@ -205,10 +206,10 @@ Material:
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
     - _TwistUvRadius: 0.75
-    - _WaveAmount: 7
-    - _WaveSpeed: 10
+    - _WaveAmount: 21.5
+    - _WaveSpeed: 13.3
     - _WaveStrength: 7.5
-    - _WaveX: 0
+    - _WaveX: 0.24
     - _WaveY: 0.5
     - _ZTestMode: 4
     - _ZWrite: 0
@@ -226,7 +227,7 @@ Material:
     - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
-    - _GlowColor: {r: 0.8773585, g: 0.79082125, b: 0, a: 1}
+    - _GlowColor: {r: 0.8773585, g: 0.7908213, b: 0, a: 1}
     - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
     - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}
     - _GradTopLeftCol: {r: 1, g: 0, b: 0, a: 1}
