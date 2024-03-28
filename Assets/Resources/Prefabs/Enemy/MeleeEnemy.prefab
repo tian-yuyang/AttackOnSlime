@@ -313,10 +313,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0675070a3eee23b46b7729a57328bb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 30
+  damage: 0
   speed: 0
-  alertDistance: 15
+  alertDistance: 20
   originPosition: {x: 0, y: 0, z: 0}
-  targetHero: {fileID: 8435555093475055754, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
+  isDamaged: 0
   anim: {fileID: 3869406633583983127}
   hpcontrol: {fileID: 3851189005487941948}
 --- !u!1 &6567814180176747744
