@@ -6,12 +6,13 @@ using UnityEngine;
 // ABC
 public class Enemy : MonoBehaviour
 {
-    private int life = 10;
+    public int life = 10;
     private int attack = 1;
-	private int damage = 0;
+	public int damage = 0;
     public float speed;
     public float alertDistance = 70f;
 	public Vector3 originPosition;
+    public bool isDamaged = false;
 
     static public Lily targetHero;
 
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        isDamaged = false;
 		// life control and HP display
 		hpcontrol.HP = (float)damage / (float)life;
         if (life <= damage)
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
 
     public void Damage(int newDamage)
     {
+        isDamaged = true;
 		anim.SetTrigger("hurt_trig");
         damage += newDamage;
     }

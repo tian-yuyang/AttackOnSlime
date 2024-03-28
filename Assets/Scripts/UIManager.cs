@@ -32,6 +32,9 @@ public class UIManager : MonoBehaviour
         maxCD = lily.GetComponent<TailController>().mAttackInterval;
         gameOverPanel.SetActive(isPaused);
         PausePanel.SetActive(isPaused);
+        Bullet.SetTargetHero(lily.GetComponent<Lily>());
+        GrowingBullet.SetTargetHero(lily.GetComponent<Lily>());
+        TraceBullet.SetTargetHero(lily.GetComponent<Lily>());
         Time.timeScale = 1;
     }
 
