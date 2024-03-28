@@ -123,7 +123,7 @@ Material:
     - _GhostTransparency: 0
     - _GlitchAmount: 3
     - _GlitchSize: 1
-    - _Glow: 14.9
+    - _Glow: 0
     - _GlowGlobal: 1
     - _GlowTexUsed: 0
     - _GradBlend: 1
@@ -205,7 +205,7 @@ Material:
     - _ShakeUvSpeed: 2.5
     - _ShakeUvX: 1.5
     - _ShakeUvY: 1
-    - _ShineGlow: 1
+    - _ShineGlow: 0.6
     - _ShineLocation: 0.5
     - _ShineRotate: 0
     - _ShineWidth: 0.1
