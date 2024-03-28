@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mRingRemainInterval: 0.16
-  mMaxTailLength: 40
-  mFollowedGenerateInterval: 0.1
+  mMaxTailLength: 60
+  mFollowedGenerateInterval: 1
   mAttackInterval: 2
   mAttackPenaltyRatio: 1.5
   TailNodeInterval: 0.71

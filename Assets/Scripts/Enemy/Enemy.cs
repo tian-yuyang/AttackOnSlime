@@ -70,8 +70,11 @@ public class Enemy : MonoBehaviour
 
     public void Destroy()
     {
-        GameObject newHeal = Instantiate(Resources.Load("Prefabs/Enemy/HealStone") as GameObject);
-        newHeal.transform.position = transform.position;
+        if (Random.value > 0.5)
+        {
+            GameObject newHeal = Instantiate(Resources.Load("Prefabs/Enemy/HealStone") as GameObject);
+            newHeal.transform.position = transform.position;
+        }
         Destroy(transform.gameObject);
     }
 

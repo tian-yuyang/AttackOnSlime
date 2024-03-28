@@ -150,7 +150,7 @@ Material:
     - _HologramUnmodAmount: 0
     - _HsvBright: 1
     - _HsvSaturation: 1
-    - _HsvShift: 180
+    - _HsvShift: 211
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
@@ -204,9 +204,9 @@ Material:
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
     - _TwistUvRadius: 0.75
-    - _WaveAmount: 7
-    - _WaveSpeed: 10
-    - _WaveStrength: 7.5
+    - _WaveAmount: 12.2
+    - _WaveSpeed: 24.3
+    - _WaveStrength: 18.7
     - _WaveX: 0
     - _WaveY: 0.5
     - _ZTestMode: 4
