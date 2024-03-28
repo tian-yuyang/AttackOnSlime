@@ -5490,6 +5490,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 526418478628721996, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ed30dbf2a69b524caa3056731fe3667, type: 3}
+    - target: {fileID: 526418478628721996, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3933788017543531426, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
       propertyPath: m_LocalPosition.x
       value: -78.76
@@ -5530,6 +5538,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7154281049818701855, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
+      propertyPath: mHurtClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ed30dbf2a69b524caa3056731fe3667, type: 3}
+    - target: {fileID: 7154281049818701855, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
+      propertyPath: mAttackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c75f96e13ac87a4589c26807271444f, type: 3}
     - target: {fileID: 8264364670494539321, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
       propertyPath: m_Name
       value: Lily
