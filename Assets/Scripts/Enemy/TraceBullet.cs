@@ -43,7 +43,10 @@ public class TraceBullet : MonoBehaviour
     
     public Vector3 GetTargetDirection()
     {
-        return (targetHero.transform.position - transform.position).normalized;
+        if (!targetHero) return Vector3.zero;
+        Vector3 v = targetHero.transform.position - transform.position;
+        v.z = 0;
+        return v.normalized;
     }
 
     static public void SetTargetHero(Lily newTargetHero)

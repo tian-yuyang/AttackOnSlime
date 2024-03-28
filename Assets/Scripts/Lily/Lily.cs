@@ -68,10 +68,10 @@ public class Lily : MonoBehaviour
 
     void LateUpdate()
     {
-        // if (HP <= 0.0f)
-        // {
-        //     Destroy(gameObject);
-        // }
+        if (HP <= 0.0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Damage(float damage) //Lily�ܵ��˺�

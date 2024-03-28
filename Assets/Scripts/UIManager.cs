@@ -57,6 +57,7 @@ public class UIManager : MonoBehaviour
     // Call this method when you want to update the player's HP
     public void UpdateHP()
     {
+        if (!lily) return;
         if (lily.GetComponent<Lily>().HP <= 0)
         {
             GameOver();// Game over
@@ -66,10 +67,12 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCD()
     {
+        if (!lily) return;
         slider.value =  1 - lily.GetComponent<TailController>().GetAttackTimer() / maxCD;
     }
     public void UpdateLength()
     {
+        if (!lily) return;
         int L = lily.GetComponent<TailController>().GetFollowedList().Count;
         length.text = "total length: " + L.ToString() + (L >= 18 ? " able" : " not able") + " to ultimate attack";
     }
