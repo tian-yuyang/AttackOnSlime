@@ -31,14 +31,16 @@ public class Lily : MonoBehaviour
 
     private bool mFaceToward = true;  //Lily���� ���� trueΪ�ң�falseΪ��
     private float mInvincibleTimer = 0.0f;  //�޵�ʱ���ʱ��
+    private float maxHP;
 
 
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        mat = GetComponent<Renderer>().material;
+        mat = GetComponent<SpriteRenderer>().material;
         LilyChangeSprite();
+        maxHP = HP;
     }
 
     // Update is called once per frame
@@ -100,5 +102,11 @@ public class Lily : MonoBehaviour
     public void SetInvincibleTimer(float inTime)
     {
         mInvincibleTimer = inTime;
+    }
+
+    public void Heal(float inHealthMount)
+    {
+        HP += inHealthMount;
+        HP = Math.Clamp(HP, 0, maxHP);
     }
 }

@@ -34,7 +34,7 @@ public class HealStone : MonoBehaviour
     {
         if (objectName.gameObject.tag == "Player")
         {
-            targetHero.Damage(-heal);
+            objectName.gameObject.GetComponent<Lily>().Heal(heal);
             Kill();
         }
     }

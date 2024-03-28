@@ -9,13 +9,13 @@ public class GameSettings : MonoBehaviour
     private void Awake()
     {
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
     }
     void Start()
     {
         //ensure bug free
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
     }
 
     // Update is called once per frame

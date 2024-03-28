@@ -271,7 +271,7 @@ public class TailController : MonoBehaviour
             mAttackTimer -= Time.deltaTime;
             if(mAttackTimer <= 0.0f)
             {
-                GetComponent<SpriteRenderer>().material.SetFloat("_Glow", 0.3f);
+                GetComponent<SpriteRenderer>().material.SetFloat("_Glow", 0.45f);
                 Invoke("AttackReadyHint", 0.1f);
             }
             return;
