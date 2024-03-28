@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public Image hpBar; // Assign in the inspector
     public TMP_Text durationTimeText = null; // Assign in the inspector
-    // public TMP_Text killCountText = null; // Assign in the inspector
+    public TMP_Text length = null; // Assign in the inspector
 
     public GameObject lily = null; // Assign in the inspector
     private float durationTime = 0f;
@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
+        Enemy.SetTargetHero(lily.GetComponent<Lily>());
         Time.timeScale = 1;
         // Example of how you might set the max HP for the player
         maxHealth = lily.GetComponent<Lily>().HP;
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
         // Example of updating the HP bar
         UpdateHP(); 
         UpdateCD();
+        UpdateLength();
     }
 
     // Call this method when you want to update the player's HP
@@ -58,6 +60,12 @@ public class UIManager : MonoBehaviour
     {
         if (!lily) return;
         slider.value =  1 - lily.GetComponent<TailController>().GetAttackTimer() / maxCD;
+    }
+    public void UpdateLength()
+    {
+        if (!lily) return;
+        int L = lily.GetComponent<TailController>().GetFollowedList().Count;
+        length.text = "total length: " + L.ToString() + (L >= 18 ? " able" : " not able") + " to ultimate attack";
     }
 
     // Call this method to increment kill count when an enemy is killed

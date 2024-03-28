@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public float alertDistance = 70f;
 	public Vector3 originPosition;
 
-    public Lily targetHero;
+    static public Lily targetHero;
 
 	// anitmation field
 	public Animator anim;
@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour
         speed = newSpeed;
     }
 
-    public void SetTargetHero(Lily newTargetHero)
+    static public void SetTargetHero(Lily newTargetHero)
     {
         targetHero = newTargetHero;
     }
