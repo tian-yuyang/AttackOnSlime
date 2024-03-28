@@ -13,6 +13,8 @@ public class MeleeBoss : Enemy
     private float distance = 0f;
     private int status = MOVE;
 
+    static public UIManager uiManager;
+
     private GameObject rectangle = null;
 
     public CoolDownBar coolDown = null;
@@ -22,6 +24,11 @@ public class MeleeBoss : Enemy
     {
         base.Start();
         Init();
+    }
+
+    static public void SetUI(UIManager newUI)
+    {
+        uiManager = newUI;
     }
 
     // Update is called once per frame
@@ -112,6 +119,13 @@ public class MeleeBoss : Enemy
         {
             status = MOVE;
         }
+    }
+
+    override public void Kill()
+    {
+        anim.SetBool("dead", true);
+        Invoke("Destroy", 1.0f);
+        uiManager.Win();
     }
 
     protected override void OnCollisionStay2D(Collision2D objectName)

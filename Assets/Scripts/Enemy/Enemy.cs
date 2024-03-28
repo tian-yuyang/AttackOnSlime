@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
 		}
     }
 
-    public void Kill()
+    public virtual void Kill()
     {
 		anim .SetBool("dead", true);
 		Invoke("Destroy", 1.0f);
