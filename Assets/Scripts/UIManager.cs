@@ -71,9 +71,10 @@ public class UIManager : MonoBehaviour
         int length = lily.GetComponent<TailController>().GetFollowedList().Count;
         if (length > 18) {
             CD.getFront().fillAmount = 1;
-            CD.getFrame().GetComponent<Material>().SetFloat("_ShineGlow", 0.6f);
+            CD.getFrame().material.SetFloat("_Glow", 100.0f);
             return;
         }
+            CD.getFrame().material.SetFloat("_Glow", 0.0f);
         CD.getFront().fillAmount =  length / maxCD;
     }
 
