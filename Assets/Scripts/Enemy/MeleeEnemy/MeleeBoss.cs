@@ -13,6 +13,8 @@ public class MeleeBoss : Enemy
     private float distance = 0f;
     private int status = MOVE;
 
+    private GameObject rectangle = null;
+
     public CoolDownBar coolDown = null;
 
     // Start is called before the first frame update
@@ -76,8 +78,11 @@ public class MeleeBoss : Enemy
         direction = GetTargetDirection();
         distance = GetTargetDistance();
 
-        GameObject rectangle = new GameObject("Rectangle");
+        rectangle = new GameObject("Rectangle");
         rectangle.AddComponent<SpriteRenderer>().color = Color.red;
+        SpriteRenderer spriteRenderer = rectangle.GetComponent<SpriteRenderer>();
+        Sprite newSprite = Resources.Load<Sprite>("Squ");
+        spriteRenderer.sprite = newSprite;
 
         Vector3 scale = new Vector3(distance, 1f, 1f);
         rectangle.transform.localScale = scale;
@@ -89,17 +94,19 @@ public class MeleeBoss : Enemy
         rectangle.transform.position = position;
 
         status = STOP;
-        Invoke("ChangeToRush", 0.8f);
+        Invoke("ChangeToRush", 0.5f);
     }
 
     void ChangeToRush()
     {
+        Destroy(rectangle.transform.gameObject);
         status = RUSH;
     }
 
     void Rush()
     {
-        transform.position = rushSpeed * Time.smoothDeltaTime * direction;
+        Debug.Log(distance);
+        transform.position += rushSpeed * Time.smoothDeltaTime * direction;
         distance -= rushSpeed * Time.smoothDeltaTime;
         if (distance < 0)
         {
