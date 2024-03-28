@@ -13,6 +13,7 @@ public class Lily : MonoBehaviour
     Material mat;//������˸
     [Tooltip("ȫ���ܻ�����")]
     public Animator screenhit;//�ܻ�����
+    public Animator restore;
 
     [Tooltip("�ƶ��ٶ�")]
     public float mSpeed = 5.0f;  //Lily�ƶ��ٶ�
@@ -108,5 +109,6 @@ public class Lily : MonoBehaviour
     {
         HP += inHealthMount;
         HP = Math.Clamp(HP, 0, maxHP);
+        restore.SetTrigger("herorestore");
     }
 }

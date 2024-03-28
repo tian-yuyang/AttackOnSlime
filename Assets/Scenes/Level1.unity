@@ -5250,6 +5250,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8435555093475055754, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
+      propertyPath: restore
+      value: 
+      objectReference: {fileID: 1345064151}
+    - target: {fileID: 8435555093475055754, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
       propertyPath: screenhit
       value: 
       objectReference: {fileID: 1521143817}
@@ -6555,6 +6559,11 @@ MonoBehaviour:
   normalStrength: 5
   normalSmoothing: 1
   computingNormal: 0
+--- !u!95 &1345064151 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2806111492248474725, guid: 27702f7537308924fafe529dd498d214, type: 3}
+  m_PrefabInstance: {fileID: 1878663229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1378518929 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 187720902916236630, guid: a01b304e1b380b243b006e4add6d4d6e, type: 3}
