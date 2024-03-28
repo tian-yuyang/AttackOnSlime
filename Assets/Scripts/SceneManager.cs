@@ -13,25 +13,35 @@ public class SceneSwitcher : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    public void SwitchGuide() {
+    public void SwitchGuide()
+    {
         LoadSceneByName("test");
     }
-    public void SwitchToLevelSelect() {
+    public void SwitchToLevelSelect()
+    {
         LoadSceneByName("LevelSelect");
     }
-    public void SwitchToChangeSkin() {
+    public void SwitchToChangeSkin()
+    {
         LoadSceneByName("ChangeSkin");
     }
-    public void BackToStart() {
+    public void BackToStart()
+    {
         LoadSceneByName("GameStart");
     }
-    public void SwitchToLevel(int x) {
+    public void SwitchToLevel(int x)
+    {
         LoadSceneByName("Level" + x.ToString());
     }
-    
+
     public void RestartGame()
     {
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void NextLevel()
+    {
+        // Load the next scene in the build index
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
