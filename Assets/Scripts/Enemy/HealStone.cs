@@ -27,7 +27,7 @@ public class HealStone : MonoBehaviour
     {
         if (objectName.gameObject.tag == "Player")
         {
-            targetHero.Damage(-heal);
+            //targetHero.Damage(-heal);
             Kill();
         }
     }

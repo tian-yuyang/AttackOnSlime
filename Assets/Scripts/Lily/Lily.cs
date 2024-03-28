@@ -37,7 +37,7 @@ public class Lily : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        mat = GetComponent<Renderer>().material;
+        mat = GetComponent<SpriteRenderer>().material;
         LilyChangeSprite();
     }
 
@@ -100,5 +100,10 @@ public class Lily : MonoBehaviour
     public void SetInvincibleTimer(float inTime)
     {
         mInvincibleTimer = inTime;
+    }
+
+    public void Heal(float inHealthMount)
+    {
+        
     }
 }
