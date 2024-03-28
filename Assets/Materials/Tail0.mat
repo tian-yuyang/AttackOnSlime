@@ -16,6 +16,7 @@ Material:
   - OUTBASE8DIR_ON
   - OUTBASE_ON
   - OUTTEX_ON
+  - SHAKEUV_ON
   - SHINE_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -192,9 +193,9 @@ Material:
     - _ShadowAlpha: 0.5
     - _ShadowX: 0.1
     - _ShadowY: -0.05
-    - _ShakeUvSpeed: 4
-    - _ShakeUvX: 4
-    - _ShakeUvY: 4
+    - _ShakeUvSpeed: 0
+    - _ShakeUvX: 4.5
+    - _ShakeUvY: 4.5
     - _ShineGlow: 0
     - _ShineLocation: 0.48
     - _ShineRotate: 0.24

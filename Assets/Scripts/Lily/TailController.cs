@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -28,6 +29,15 @@ public class TailController : MonoBehaviour
 
     [Tooltip("环延长判定时间")]
     public float mRingRemainInterval = 0.05f;
+    //
+
+    //用于Retrace
+    private bool mDisplayRetraceRange = false;
+    private bool mIsRetrace = false;
+    private int mCurrentRetraceIdx = 0;
+    private float mRetraecSpeed = 0.0f;
+    private float mRetraceDisplayTimer = 0.8f;
+    private GameObject mRetraceRange = null;
     //
 
     [Tooltip("最大尾巴长度")]
@@ -65,6 +75,12 @@ public class TailController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(mIsRetrace)
+        {
+            Retracing();
+            return;
+        }
+
         mTrack.Insert(0, transform.position);
         if (mTrack.Count() > mMaxTailLength * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset + 10 /*magic number: ensure bug-free*/)
         {
@@ -253,6 +269,11 @@ public class TailController : MonoBehaviour
         if (mAttackTimer > 0.0f) //生成TailNode的间隔
         {
             mAttackTimer -= Time.deltaTime;
+            if(mAttackTimer <= 0.0f)
+            {
+                GetComponent<SpriteRenderer>().material.SetFloat("_Glow", 0.3f);
+                Invoke("AttackReadyHint", 0.1f);
+            }
             return;
         }
 
@@ -340,39 +361,148 @@ public class TailController : MonoBehaviour
     private void ReTrace()
     {
         if (mFollowedList.Count() <= 18)
+        {
+            for (int i = 0; i < mFollowedList.Count(); i++)
+            {
+                switch (PlayerPrefs.GetInt("SkinNumber", 0))
+                {
+                    case 0:
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvSpeed", 0.0f);
+                        break;
+                    case 1:
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvSpeed", 2.5f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvX", 0.08f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvY", 0.19f);
+                        break;
+                    case 2:
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvSpeed", 2.5f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvX", 1.5f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvY", 1.0f);
+                        break;
+                }
+            }
+            if (mDisplayRetraceRange)
+            {
+                mDisplayRetraceRange = false;
+                mRetraceDisplayTimer = 0.8f;
+                RetraceRangeDisplay();
+            }
             return;
+        }
         else
         {
-            /*for (int i = 0; i < mFollowedList.Count(); i++)
+            for (int i = 0; i < mFollowedList.Count(); i++)
             {
-                mFollowedList[i].GetComponent<SpriteRenderer>().material.color = Color.blue;
-            }*/
+                switch (PlayerPrefs.GetInt("SkinNumber", 0))
+                {
+                    case 0:
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvSpeed", 5.0f);
+                        break;
+                    case 1:
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvSpeed", 3.5f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvX", 3.0f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvY", 3.0f);
+                        break;
+                    case 2:
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvSpeed", 7.0f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvX", 3.5f);
+                        mFollowedList[i].GetComponent<SpriteRenderer>().material.SetFloat("_ShakeUvY", 3.5f);
+                        break;
+                }
+            }
         }
 
-        if (!Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space))
+        {
+            mRetraceDisplayTimer -= Time.deltaTime;
+            if (mRetraceDisplayTimer <= 0.0f) mDisplayRetraceRange = true;
+        }
+        RetraceRangeDisplay();
+
+        if (!Input.GetKeyUp(KeyCode.Space))
             return;
 
+        if (mDisplayRetraceRange)
+        {
+            mDisplayRetraceRange = false;
+            mRetraceDisplayTimer = 0.8f;
+            return;
+        }
+
+        BeginRetrace();        
+    }
+
+    private void RetraceRangeDisplay()
+    {
+        if(!mDisplayRetraceRange)
+        {
+            if (mRetraceRange)
+                Destroy(mRetraceRange);
+            return;
+        }
+        if(!mRetraceRange) mRetraceRange = Instantiate(Resources.Load("Prefabs/Range"), mFollowedList[mFollowedList.Count()-1].transform.position, Quaternion.identity) as GameObject;
+        else mRetraceRange.transform.position = mFollowedList[mFollowedList.Count() - 1].transform.position;
+    }
+
+    private void BeginRetrace()
+    {
+        mIsRetrace = true;
+        gameObject.tag = "Retrace";
+    }
+
+    private void EndRetrace()
+    {
+        mCurrentRetraceIdx = 0;
         for (int i = 0; i < mTriggerFlags.Count(); i++)
         {
             mTriggerFlags[i] = 0;
         }
-
-        transform.position = mTrack[(mFollowedList[mFollowedList.Count() - 1].GetComponent<TailNodeBehavior>().GetCurrentNodeIdx()) * TailNodeBehavior.SearchInterval + TailNodeBehavior.SearchInterval];
         Instantiate(Resources.Load("Prefabs/Explosion"), transform.position, Quaternion.identity);
 
+        mIsRetrace = false;
         ClearTail();
+        gameObject.tag = "Player";
+        GetComponent<Lily>().SetInvincibleTimer(1.5f);
+    }
+
+    private void Retracing()
+    {
+        Vector3 currentPos = transform.position;
+        int retraceCount = 1;
+
+        if (mCurrentRetraceIdx < mFollowedList.Count())
+        {
+            for(int i = mCurrentRetraceIdx;i<mFollowedList.Count()-1;i++)
+            {
+                if ((currentPos - mFollowedList[i].transform.position).magnitude <= 0.3f)
+                {
+                    retraceCount++;
+                }
+                else
+                    break;
+            }
+
+            transform.position = mFollowedList[mCurrentRetraceIdx+retraceCount-1].transform.position;
+            for(int i = 0; i < retraceCount; i++)
+                Destroy(mFollowedList[i+mCurrentRetraceIdx]);
+            mCurrentRetraceIdx+=retraceCount;
+        }
+        else
+        {
+            EndRetrace();
+            return;
+        }
+    }
+
+    public void AttackReadyHint()
+    {
+        GetComponent<SpriteRenderer>().material.SetFloat("_Glow", 0.0f);
     }
 
     public void ClearTail()
     {
         mIsRingUpdate = true;
-
         mTrack.Clear();
-        for (int i = 0; i < mFollowedList.Count(); i++)
-        {
-            Destroy(mFollowedList[i]);
-        }
-
         mFollowedList.Clear();
     }
 
@@ -394,5 +524,10 @@ public class TailController : MonoBehaviour
     public float GetAttackTimer()
     {
         return mAttackTimer;
+    }
+
+    public bool GetRetraceState()
+    {
+        return mIsRetrace;
     }
 }

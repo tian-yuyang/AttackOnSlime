@@ -51,10 +51,12 @@ public class TailNodeBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!mLeader) return;
+        if (mLeader.GetComponent<TailController>().GetRetraceState()) return;
+
         //更新tail node位置
         int searchPosOnTrack = mCurrentNodeIdx * SearchInterval + FirstSearchPosOffset;  //eg: (0 + 1) * 5 表示node0的SearchPos在Track上一直为5
 
-        if (!mLeader) return;
         List<Vector3> track = mLeader.GetComponent<TailController>().GetTrack();
         transform.position = track[searchPosOnTrack];
 
@@ -163,7 +165,8 @@ public class TailNodeBehavior : MonoBehaviour
         {
             Enemy enemy = mCollidedObject.GetComponent<Enemy>();
             if (!enemy) return false;
-            enemy.Damage(mAttack);
+            if(!enemy.isDamaged)
+                enemy.Damage(mAttack);
         }
         return true;
     }
