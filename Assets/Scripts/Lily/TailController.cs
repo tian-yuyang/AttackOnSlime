@@ -290,6 +290,7 @@ public class TailController : MonoBehaviour
 
         if (isAttackSuccess)
         {
+            GetComponent<OneShotAudioPlayer>().PlayAttack();
             mAttackTimer = mAttackInterval;
             mFollowedGenerateTimer = Math.Min(mFollowedGenerateInterval * mAttackPenaltyRatio, 4.8f);
         }
