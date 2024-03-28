@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using UnityEngine;
 
 [RequireComponent(typeof(TailController))]
@@ -80,6 +78,7 @@ public class Lily : MonoBehaviour
         {
             HP -= damage;
             mInvincibleTimer = mInvincibleTime;
+            GetComponent<OneShotAudioPlayer>().PlayHurt();
             screenhit.SetTrigger("herohurt");
             mat.EnableKeyword("FLICKER_ON");
             Invoke("Stop_flicker", mInvincibleTime);
