@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-	static public float bulletSpeed = 20f;
+	static public float bulletSpeed = 15f;
 
 	static public Lily targetHero;
 

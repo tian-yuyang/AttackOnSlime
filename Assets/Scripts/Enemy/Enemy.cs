@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     {
         // transform.position = originPosition;
 		originPosition = transform.position;
+        HealStone.targetHero = targetHero;
     }
 
     // Update is called once per frame
@@ -63,15 +64,15 @@ public class Enemy : MonoBehaviour
 
     public void Kill()
     {
-		GameObject newHeal = Instantiate(Resources.Load("Prefabs/Enemy/HealStone") as GameObject);
-		newHeal.transform.position = transform.position;
 		anim .SetBool("dead", true);
 		Invoke("Destroy", 1.0f);
     }
 
     public void Destroy()
     {
-	    Destroy(transform.gameObject);
+        GameObject newHeal = Instantiate(Resources.Load("Prefabs/Enemy/HealStone") as GameObject);
+        newHeal.transform.position = transform.position;
+        Destroy(transform.gameObject);
     }
 
     public void SetLife(int newLife)
