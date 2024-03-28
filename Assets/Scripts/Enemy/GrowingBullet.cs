@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrowingBullet : MonoBehaviour
 {
-    private float bulletSpeed = 5f;
+    static public float bulletSpeed = 5f;
     private float targetScale = 2f;
     private float growingSpeed = 1.01f;
 
@@ -51,7 +51,6 @@ public class GrowingBullet : MonoBehaviour
 
     public Vector3 GetTargetDirection()
     {
-        if (!targetHero) return Vector3.zero;
         Vector3 v = targetHero.transform.position - transform.position;
         v.z = 0;
         return v.normalized;

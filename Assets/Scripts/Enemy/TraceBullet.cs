@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TraceBullet : MonoBehaviour
 {
-    private float bulletSpeed = 40f;
+    static public float bulletSpeed = 20f;
     private int life = 400;
-    static private Lily targetHero;
+    static public Lily targetHero;
 
 	static public int attack = 1;
     
@@ -43,7 +43,6 @@ public class TraceBullet : MonoBehaviour
     
     public Vector3 GetTargetDirection()
     {
-        if (!targetHero) return Vector3.zero;
         Vector3 v = targetHero.transform.position - transform.position;
         v.z = 0;
         return v.normalized;
