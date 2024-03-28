@@ -16,6 +16,10 @@ public class UIManager : MonoBehaviour
     private float maxCD;
     public GameObject gameOverPanel;
 
+    public GameObject PausePanel;
+
+    private bool isPaused = false;
+
 
     public Slider slider;
 
@@ -23,11 +27,12 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         Enemy.SetTargetHero(lily.GetComponent<Lily>());
-        Time.timeScale = 1;
         // Example of how you might set the max HP for the player
         maxHealth = lily.GetComponent<Lily>().HP;
         maxCD = lily.GetComponent<TailController>().mAttackInterval;
-        gameOverPanel.SetActive(false);
+        gameOverPanel.SetActive(isPaused);
+        PausePanel.SetActive(isPaused);
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -43,6 +48,10 @@ public class UIManager : MonoBehaviour
         UpdateHP(); 
         UpdateCD();
         UpdateLength();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
     }
 
     // Call this method when you want to update the player's HP
@@ -78,6 +87,16 @@ public class UIManager : MonoBehaviour
     public void GameOver() {
         Time.timeScale = 0;
         gameOverPanel.SetActive(true);
+    }
 
+    public void Pause() {
+        Time.timeScale = isPaused ? 0 : 1;
+        PausePanel.SetActive(isPaused = !isPaused);
+    }
+
+    public void PauseTostart() {
+        Time.timeScale = 1;
+        PausePanel.SetActive(false);
+        isPaused = false;
     }
 }
