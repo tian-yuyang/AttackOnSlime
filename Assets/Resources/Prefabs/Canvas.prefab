@@ -1679,9 +1679,9 @@ RectTransform:
   - {fileID: 2878545733387657254}
   m_Father: {fileID: 8431014637790552143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 284, y: 197}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -116, y: -28}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1841465397141761948
@@ -3231,9 +3231,10 @@ MonoBehaviour:
   hpBar: {fileID: 6094320291043445955}
   durationTimeText: {fileID: 5505377185636670499}
   CD: {fileID: 1841465397141761948}
-  lily: {fileID: 0}
+  lily: {fileID: 8264364670494539321, guid: 22f431dfb6b82a2429da05881ce8a769, type: 3}
   gameOverPanel: {fileID: 9170702300619041874}
   PausePanel: {fileID: 5413546955988628412}
+  WinPanel: {fileID: 2640519483961224633}
 --- !u!114 &4799792624924951328
 MonoBehaviour:
   m_ObjectHideFlags: 0
