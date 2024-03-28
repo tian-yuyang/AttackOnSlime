@@ -108,6 +108,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8a00915f16a8fdf41a6d27506cea2fca, type: 3}
   - {fileID: 21300000, guid: 18350c15d158f4a46b56c0659766e84e, type: 3}
   screenhit: {fileID: 0}
+  restore: {fileID: 0}
   mSpeed: 5.32
   HP: 20
   mInvincibleTime: 1
@@ -316,6 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4a643969206294191e2523ffe75687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mAttackClip: {fileID: 8300000, guid: 9c75f96e13ac87a4589c26807271444f, type: 3}
+  mAttackClip: {fileID: 8300000, guid: bcadd63a63ac3004db90a97b56886fbd, type: 3}
   mHurtClip: {fileID: 8300000, guid: 6ed30dbf2a69b524caa3056731fe3667, type: 3}
   mAudioSource: {fileID: 526418478628721996}
