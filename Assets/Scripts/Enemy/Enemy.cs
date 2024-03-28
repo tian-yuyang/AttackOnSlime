@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public float alertDistance = 70f;
 	public Vector3 originPosition;
+    public bool isDamaged = false;
 
     static public Lily targetHero;
 
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        isDamaged = false;
 		// life control and HP display
 		hpcontrol.HP = (float)damage / (float)life;
         if (life <= damage)
@@ -45,7 +47,7 @@ public class Enemy : MonoBehaviour
 
     public void Damage(int newDamage)
     {
-        Debug.Log(newDamage);
+        isDamaged = true;
 		anim.SetTrigger("hurt_trig");
         damage += newDamage;
     }
