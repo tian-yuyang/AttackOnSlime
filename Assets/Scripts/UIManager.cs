@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         Enemy.SetTargetHero(lily.GetComponent<Lily>());
-        // Time.timeScale = 1;
+        Time.timeScale = 1;
         // Example of how you might set the max HP for the player
         maxHealth = lily.GetComponent<Lily>().HP;
         maxCD = lily.GetComponent<TailController>().mAttackInterval;
@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
     // Call this method when you want to update the player's HP
     public void UpdateHP()
     {
+        if (!lily) return;
         if (lily.GetComponent<Lily>().HP <= 0)
         {
             GameOver();// Game over
@@ -57,10 +58,12 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateCD()
     {
+        if (!lily) return;
         slider.value =  1 - lily.GetComponent<TailController>().GetAttackTimer() / maxCD;
     }
     public void UpdateLength()
     {
+        if (!lily) return;
         int L = lily.GetComponent<TailController>().GetFollowedList().Count;
         length.text = "total length: " + L.ToString() + (L >= 18 ? " able" : " not able") + " to ultimate attack";
     }
@@ -73,7 +76,7 @@ public class UIManager : MonoBehaviour
     // }
 
     public void GameOver() {
-        // Time.timeScale = 0;
+        Time.timeScale = 0;
         gameOverPanel.SetActive(true);
 
     }

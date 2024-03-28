@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour
 
 	public Vector3 GetTargetDirection()
 	{
+		if (!targetHero) return Vector3.zero;
 		Vector3 v = targetHero.transform.position - transform.position;
 		v.z = 0;
 		return v.normalized;

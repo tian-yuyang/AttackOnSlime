@@ -24,6 +24,7 @@ public class TailController : MonoBehaviour
     //Fix bug: 用于松弛的环判定
     private List<TriggerCircle> mCircleList = null;
     private float mRingRemainTimer = 0.0f;
+    private bool mIsRingUpdate = false;
 
     [Tooltip("环延长判定时间")]
     public float mRingRemainInterval = 0.05f;
@@ -86,13 +87,32 @@ public class TailController : MonoBehaviour
 
     private void LooseRingRemainJudge(List<TriggerCircle> list)
     {
-        if (mCircleList.Count() == 0 || mCircleList.Count() < list.Count())
+        int totalPrev = 0;
+        int totalNow = 0;
+
+        for(int i=0;i<mCircleList.Count();i++)
+        {
+            totalPrev += mCircleList[i].mMaxPos - mCircleList[i].mMinPos + 1;
+        }
+        for (int i = 0; i < list.Count(); i++)
+        {
+            totalNow += list[i].mMaxPos - list[i].mMinPos + 1;
+        }
+
+        if (mCircleList.Count() == 0 || (mCircleList.Count() < list.Count() || totalPrev < totalNow) || mIsRingUpdate)
         {
             mCircleList = list;
             mRingRemainTimer = mRingRemainInterval;
+            mIsRingUpdate = false;
         }
-        else if (mCircleList.Count() >= list.Count())
+        else if (mCircleList.Count() >= list.Count() && totalPrev >= totalNow)
         {
+/*            for (int i = 0; i < mCircleList.Count(); i++)
+            {
+                if ((mFollowedList[mCircleList[i].mMinPos].transform.position - mFollowedList[mCircleList[i].mMaxPos].transform.position).magnitude < 1.85f)
+                    return;
+            }*/
+
             if (mRingRemainTimer > 0.0f)
             {
                 mRingRemainTimer -= Time.deltaTime;
@@ -259,6 +279,8 @@ public class TailController : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.K))
             return;
 
+        mIsRingUpdate = true;
+
         for (int i = 0; i < list.Count(); i++)
         {
             int prevSearchPos = (list[i].mMinPos - 1) * TailNodeBehavior.SearchInterval + TailNodeBehavior.FirstSearchPosOffset;
@@ -343,6 +365,8 @@ public class TailController : MonoBehaviour
 
     public void ClearTail()
     {
+        mIsRingUpdate = true;
+
         mTrack.Clear();
         for (int i = 0; i < mFollowedList.Count(); i++)
         {

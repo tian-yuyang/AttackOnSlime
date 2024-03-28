@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - DISTORT_ON
+  - HSV_ON
   - ROTATEUV_ON
   - SHAKEUV_ON
   - TWISTUV_ON
