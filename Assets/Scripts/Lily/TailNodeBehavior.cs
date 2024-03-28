@@ -163,7 +163,8 @@ public class TailNodeBehavior : MonoBehaviour
         {
             Enemy enemy = mCollidedObject.GetComponent<Enemy>();
             if (!enemy) return false;
-            enemy.Damage(mAttack);
+            if(!enemy.isDamaged)
+                enemy.Damage(mAttack);
         }
         return true;
     }

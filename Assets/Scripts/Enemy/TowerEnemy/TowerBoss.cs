@@ -5,6 +5,7 @@ using UnityEngine;
 public class TowerBoss : MonoBehaviour
 {
     public int dead = 0;
+    [Tooltip("Ëþ¼ä¾à")]
     public float interval = 10f;
     
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class TowerBoss : MonoBehaviour
     {
         if (dead == 4)
         {
-
+            //win
             Destroy(transform.gameObject);
         }
     }
