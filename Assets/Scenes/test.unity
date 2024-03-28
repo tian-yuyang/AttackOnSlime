@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &37202144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5413546955988628412, guid: 003840e22bf15604f95e77420d5720ad, type: 3}
+  m_PrefabInstance: {fileID: 540271444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &82143476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3838189981550730584, guid: ff59fc6cec6f6a44cbf4772cd41a2940, type: 3}
@@ -1422,7 +1427,7 @@ Transform:
   m_GameObject: {fileID: 470346984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64.80729, y: 0.35999978, z: -10}
+  m_LocalPosition: {x: -70.22775, y: 0.35999978, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1541,6 +1546,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5413546955988628412, guid: 003840e22bf15604f95e77420d5720ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8431014637790552143, guid: 003840e22bf15604f95e77420d5720ad, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1629,6 +1638,10 @@ PrefabInstance:
       propertyPath: lily
       value: 
       objectReference: {fileID: 347411286}
+    - target: {fileID: 8931537383146163807, guid: 003840e22bf15604f95e77420d5720ad, type: 3}
+      propertyPath: PausePanel
+      value: 
+      objectReference: {fileID: 37202144}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
