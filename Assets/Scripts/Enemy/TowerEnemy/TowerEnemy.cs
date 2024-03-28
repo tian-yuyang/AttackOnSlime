@@ -5,6 +5,11 @@ using UnityEngine;
 public class TowerEnemy : Enemy
 {
 	public CoolDownBar coolDown = null;
+	public TowerBoss targetBoss = null;
+	private int coolCount = 0;
+	public int coolDownInterval = 10;
+
+	private bool isElite = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -19,7 +24,22 @@ public class TowerEnemy : Enemy
         // alert mode
 		if (GetTargetDistance() < alertDistance && coolDown.ReadyForNext())
 		{
-			Attack();
+			if (isElite)
+			{
+				coolCount += 1;
+				if (coolCount % coolDownInterval == 0)
+				{
+					GenerateEnemy();
+				}
+				else
+				{
+					coolDown.TriggerCoolDown();
+				}
+			}
+			else
+			{
+				Attack();
+			}
 		}
     }
     
@@ -36,8 +56,21 @@ public class TowerEnemy : Enemy
 	void Attack()
 	{
 		GameObject newBullet = Instantiate(Resources.Load("Prefabs/Enemy/Bullet") as GameObject);
-		newBullet.transform.localPosition = transform.localPosition;
+		newBullet.transform.position = transform.position;
 		coolDown.TriggerCoolDown();
+	}
+
+	public void GenerateEnemy()
+	{
+		GameObject newEnemy = Instantiate(Resources.Load("Prefabs/Enemy/MeleeEnemy") as GameObject);
+		newEnemy.transform.position = transform.position;
+		coolDown.TriggerCoolDown();
+	}
+
+	public void SetElite(TowerBoss newBoss)
+	{
+		isElite = true;
+		targetBoss = newBoss;
 	}
 
 	protected override void OnCollisionEnter2D(Collision2D objectName)
