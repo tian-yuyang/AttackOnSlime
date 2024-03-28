@@ -7,6 +7,7 @@ public class TowerBoss : MonoBehaviour
     public int dead = 0;
     [Tooltip("Ëþ¼ä¾à")]
     public float interval = 10f;
+    static public UIManager uiManager;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,11 @@ public class TowerBoss : MonoBehaviour
             //win
             Destroy(transform.gameObject);
         }
+    }
+
+    static public void SetUI(UIManager newUI)
+    {
+        uiManager = newUI;
     }
 
     public void DeadOne()

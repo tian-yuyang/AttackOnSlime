@@ -63,6 +63,8 @@ public class Enemy : MonoBehaviour
 
     public void Kill()
     {
+		GameObject newHeal = Instantiate(Resources.Load("Prefabs/Enemy/HealStone") as GameObject);
+		newHeal.transform.position = transform.position;
 		anim .SetBool("dead", true);
 		Invoke("Destroy", 1.0f);
     }
