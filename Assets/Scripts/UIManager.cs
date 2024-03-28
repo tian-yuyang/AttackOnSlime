@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         Enemy.SetTargetHero(lily.GetComponent<Lily>());
+        RemoteBoss.SetUI(this);
+        TowerBoss.SetUI(this);
         // Example of how you might set the max HP for the player
         maxHealth = lily.GetComponent<Lily>().HP;
         gameOverPanel.SetActive(isPaused);
