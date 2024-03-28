@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TraceBullet : MonoBehaviour
 {
-    static public float bulletSpeed = 20f;
+    static public float bulletSpeed = 10f;
     private int life = 400;
     static public Lily targetHero;
 
-	static public int attack = 1;
+	static public int attack = 3;
     
     // Start is called before the first frame update
     void Start()

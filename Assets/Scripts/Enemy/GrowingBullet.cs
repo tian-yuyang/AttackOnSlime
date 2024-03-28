@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GrowingBullet : MonoBehaviour
 {
-    static public float bulletSpeed = 5f;
+    static public float bulletSpeed = 4f;
     private float targetScale = 2f;
     private float growingSpeed = 1.01f;
 
     static public Lily targetHero;
 
-    static public int attack = 1;
+    static public int attack = 2;
 
     // Start is called before the first frame update
     void Start()
