@@ -7,7 +7,8 @@ public class TowerEnemy : Enemy
 	public CoolDownBar coolDown = null;
 	public TowerBoss targetBoss = null;
 	private int coolCount = 0;
-	public int coolDownInterval = 10;
+    [Tooltip("生成速度")]
+    public int coolDownInterval = 10;
 
 	private bool isElite = false;
     // Start is called before the first frame update
