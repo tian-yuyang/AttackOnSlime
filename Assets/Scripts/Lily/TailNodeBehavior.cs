@@ -22,7 +22,7 @@ public class TailNodeBehavior : MonoBehaviour
     public Sprite[] pic;//贴图
     //TODO(Hangyu) : 根Enemy保持一致，暂定为int型
     [Tooltip("普通攻击攻击力")]
-    public int mAttack = 1000;
+    public int mAttack = 5;
     [Tooltip("攻击特效持续时间")]
     public float mAttackEffectTime = 0.15f;
 

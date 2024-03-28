@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemoteEnemy : Enemy
 {
-	private float escapeDistance = 35f;
+	public float escapeDistance = 35f;
 	public bool isElite = false;
 	public CoolDownBar coolDown = null;
 
@@ -26,13 +26,15 @@ public class RemoteEnemy : Enemy
         // alert mode
 		if (GetTargetDistance() < alertDistance && coolDown.ReadyForNext())
 		{
+			Debug.Log("alert:"+ alertDistance);
 			Attack();
 		}
 		
 		// escape mode
 		if (GetTargetDistance() < escapeDistance)
-		{
-			Escape();
+        {
+            Debug.Log("escape:" + escapeDistance);
+            Escape();
 		}
     }
 
@@ -64,7 +66,7 @@ public class RemoteEnemy : Enemy
 			newBullet = Instantiate(Resources.Load("Prefabs/Enemy/Bullet") as GameObject);
 		}
 		
-		newBullet.transform.localPosition = transform.localPosition;
+		newBullet.transform.position = transform.position;
 		coolDown.TriggerCoolDown();
 	}
 
