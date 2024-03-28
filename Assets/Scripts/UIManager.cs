@@ -6,14 +6,14 @@ public class UIManager : MonoBehaviour
 {
     public Image hpBar; // Assign in the inspector
     public TMP_Text durationTimeText = null; // Assign in the inspector
-    public TMP_Text length = null; // Assign in the inspector
+    public CDBar CD = null; // Assign in the inspector
 
     public GameObject lily = null; // Assign in the inspector
     private float durationTime = 0f;
     private int killCount = 0;
 
     private float maxHealth;
-    private float maxCD;
+    private float maxCD = 18;
     public GameObject gameOverPanel;
 
     public GameObject PausePanel;
@@ -21,21 +21,19 @@ public class UIManager : MonoBehaviour
     private bool isPaused = false;
 
 
-    public Slider slider;
 
-
-    void Awake()
+    void Start()
     {
         Enemy.SetTargetHero(lily.GetComponent<Lily>());
         // Example of how you might set the max HP for the player
         maxHealth = lily.GetComponent<Lily>().HP;
-        maxCD = lily.GetComponent<TailController>().mAttackInterval;
         gameOverPanel.SetActive(isPaused);
         PausePanel.SetActive(isPaused);
         Bullet.SetTargetHero(lily.GetComponent<Lily>());
         GrowingBullet.SetTargetHero(lily.GetComponent<Lily>());
         TraceBullet.SetTargetHero(lily.GetComponent<Lily>());
         Time.timeScale = 1;
+        isPaused = false;
     }
 
     void Update()
@@ -50,7 +48,6 @@ public class UIManager : MonoBehaviour
         // Example of updating the HP bar
         UpdateHP(); 
         UpdateCD();
-        UpdateLength();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Pause();
@@ -71,13 +68,14 @@ public class UIManager : MonoBehaviour
     public void UpdateCD()
     {
         if (!lily) return;
-        slider.value =  1 - lily.GetComponent<TailController>().GetAttackTimer() / maxCD;
-    }
-    public void UpdateLength()
-    {
-        if (!lily) return;
-        int L = lily.GetComponent<TailController>().GetFollowedList().Count;
-        length.text = "total length: " + L.ToString() + (L >= 18 ? " able" : " not able") + " to ultimate attack";
+        int length = lily.GetComponent<TailController>().GetFollowedList().Count;
+        if (length > 18) {
+            CD.getFront().fillAmount = 1;
+            CD.getFrame().material.SetFloat("_Glow", 100.0f);
+            return;
+        }
+            CD.getFrame().material.SetFloat("_Glow", 0.0f);
+        CD.getFront().fillAmount =  length / maxCD;
     }
 
     // Call this method to increment kill count when an enemy is killed
@@ -93,8 +91,9 @@ public class UIManager : MonoBehaviour
     }
 
     public void Pause() {
+        isPaused = !isPaused;
         Time.timeScale = isPaused ? 0 : 1;
-        PausePanel.SetActive(isPaused = !isPaused);
+        PausePanel.SetActive(isPaused);
     }
 
     public void PauseTostart() {

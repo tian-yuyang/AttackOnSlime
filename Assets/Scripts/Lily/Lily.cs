@@ -97,4 +97,9 @@ public class Lily : MonoBehaviour
 
         GetComponent<TailController>().ClearTail();
     }
+
+    public void SetInvincibleTimer(float inTime)
+    {
+        mInvincibleTimer = inTime;
+    }
 }
