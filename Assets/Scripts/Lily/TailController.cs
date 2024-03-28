@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -268,6 +269,11 @@ public class TailController : MonoBehaviour
         if (mAttackTimer > 0.0f) //生成TailNode的间隔
         {
             mAttackTimer -= Time.deltaTime;
+            if(mAttackTimer <= 0.0f)
+            {
+                GetComponent<SpriteRenderer>().material.SetFloat("_Glow", 0.3f);
+                Invoke("AttackReadyHint", 0.1f);
+            }
             return;
         }
 
@@ -486,6 +492,11 @@ public class TailController : MonoBehaviour
             EndRetrace();
             return;
         }
+    }
+
+    public void AttackReadyHint()
+    {
+        GetComponent<SpriteRenderer>().material.SetFloat("_Glow", 0.0f);
     }
 
     public void ClearTail()
