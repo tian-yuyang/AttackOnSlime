@@ -10,6 +10,7 @@ TagManager:
   - RemoteEnemy
   - TowerEnemy
   - Bullet
+  - Retrace
   layers:
   - Default
   - TransparentFX
