@@ -94,9 +94,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.048222683, y: -0.036166806}
   serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 1.0057034
 --- !u!114 &-2621439923265649554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mLifeTime: 0
+  mShowTime: 1.25
   mAttack: 1000
 --- !u!212 &2320835284112592138
 SpriteRenderer:

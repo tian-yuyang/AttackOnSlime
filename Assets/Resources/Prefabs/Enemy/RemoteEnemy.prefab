@@ -467,12 +467,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fc259b2c429e541ba9db728b2fa809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 10
+  damage: 0
   speed: 0
   alertDistance: 15
   originPosition: {x: 0, y: 0, z: 0}
-  targetHero: {fileID: 0}
+  isDamaged: 0
   anim: {fileID: 4742852176424995328}
   hpcontrol: {fileID: 2569243642315739541}
+  escapeDistance: 7
   isElite: 0
   coolDown: {fileID: 7184236453941854719}
 --- !u!95 &4742852176424995328
