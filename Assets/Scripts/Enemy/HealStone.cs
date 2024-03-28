@@ -5,6 +5,8 @@ using UnityEngine;
 public class HealStone : MonoBehaviour
 {
     private int heal = 3;
+
+    static private Lily targetHero;
     
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,11 @@ public class HealStone : MonoBehaviour
     void Update()
     {
         
+    }
+    
+    static public void SetTargetHero(Lily newTargetHero)
+    {
+        targetHero = newTargetHero;
     }
     
     public void Kill()

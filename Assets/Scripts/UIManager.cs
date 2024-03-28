@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject gameOverPanel;
 
     public GameObject PausePanel;
+    public GameObject WinPanel;
 
     private bool isPaused = false;
 
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
         maxHealth = lily.GetComponent<Lily>().HP;
         gameOverPanel.SetActive(isPaused);
         PausePanel.SetActive(isPaused);
+        WinPanel.SetActive(isPaused);
         Bullet.SetTargetHero(lily.GetComponent<Lily>());
         GrowingBullet.SetTargetHero(lily.GetComponent<Lily>());
         TraceBullet.SetTargetHero(lily.GetComponent<Lily>());
@@ -88,6 +90,11 @@ public class UIManager : MonoBehaviour
     public void GameOver() {
         Time.timeScale = 0;
         gameOverPanel.SetActive(true);
+    }
+
+    public void Win() {
+        Time.timeScale = 0;
+        WinPanel.SetActive(true);
     }
 
     public void Pause() {
